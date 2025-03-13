@@ -12,10 +12,23 @@ export default function ThreeDProjectsShowcase() {
   const [selectedProject, setSelectedProject] = useState<number | null>(null)
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
+  
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const projects = [
+   
+    {
+      id: 3,
+      title: "Amazon E-Commerce Clone",
+      description:
+        "A full-stack e-commerce platform inspired by Amazon, featuring user authentication, product listings, a shopping cart, and a secure checkout process.",
+      technologies: ["HTML", "CSS", "JavaScript", "Node.js", "Express.js"],
+      image: "/placeholder.svg?height=300&width=600",
+      color: "#a6e3a1", // Green
+    },
+    
     {
       id: 1,
-      title: "University Collaboration Platform",
+      title: "E-Learning Application for the SMI Platform",
       description:
         "A comprehensive platform that facilitates collaboration between students and professors. Features include file sharing, online requests for recommendation letters, announcement boards, and blogs.",
       technologies: [
@@ -28,7 +41,7 @@ export default function ThreeDProjectsShowcase() {
         "RabbitMQ",
       ],
       image: "/placeholder.svg?height=300&width=600",
-      color: "#89b4fa", // Blue
+      color: "#f38ba8", // Red
     },
     {
       id: 2,
@@ -37,28 +50,10 @@ export default function ThreeDProjectsShowcase() {
         "A web application for collaboration within companies, similar to Stack Overflow, featuring an announcement system, event organization, and blogs for internal communication.",
       technologies: ["Next.js 14", "NextAuth", "MongoDB"],
       image: "/placeholder.svg?height=300&width=600",
-      color: "#a6e3a1", // Green
+      color: "#fab387", // Orange
     },
-    {
-      id: 3,
-      title: "Gladiator: 2D Fighting Game",
-      description:
-        "A 2D fighting game developed from scratch using the C programming language and GTK for the graphical user interface. The game includes various mechanics, characters, and visual effects.",
-      technologies: ["C", "GTK Library"],
-      image: "/placeholder.svg?height=300&width=600",
-      color: "#f9e2af", // Yellow
-    },
-    {
-      id: 4,
-      title: "Maze Pathfinder",
-      description:
-        "A Next.js web application that visualizes Dijkstra's Algorithm and Breadth-First Search (BFS) for maze pathfinding, with backend processing handled by a C++ web server.",
-      technologies: ["C++", "Next.js 15", "Tailwind CSS"],
-      image: "/placeholder.svg?height=300&width=600",
-      color: "#f38ba8", // Red
-    },
-  ]
-
+  ];
+  
   useEffect(() => {
     if (!mountRef.current) return
 

@@ -189,34 +189,34 @@ export default function Terminal() {
                   <span className="text-terminal-green mr-2">→</span>
                   <span className="text-terminal-text-dim mr-2">GitHub:</span>
                   <a
-                    href="https://github.com/khalid-echchahid"
+                    href="https://github.com/oussamamahidev"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-terminal-blue hover:underline"
                   >
-                    github.com/khalid-echchahid
+                    github.com/oussamamahidev
                   </a>
                 </div>
                 <div className="flex items-center">
                   <span className="text-terminal-green mr-2">→</span>
                   <span className="text-terminal-text-dim mr-2">LinkedIn:</span>
                   <a
-                    href="https://linkedin.com/in/khalid-echchahid"
+                    href="https://www.linkedin.com/in/oussama-mahi-32041b267/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-terminal-blue hover:underline"
                   >
-                    linkedin.com/in/khalid-echchahid
+                    linkedin.com/in/oussamaMahi
                   </a>
                 </div>
                 <div className="flex items-center">
                   <span className="text-terminal-green mr-2">→</span>
                   <span className="text-terminal-text-dim mr-2">Email:</span>
                   <a
-                    href="mailto:echchahidkhalid7@gmail.com"
+                    href="mailto:mahioussama523@gmail.com"
                     className="text-terminal-blue hover:underline"
                   >
-                    echchahidkhalid7@gmail.com
+                    mahioussama523@gmail.com
                   </a>
                 </div>
               </div>
@@ -466,10 +466,10 @@ export default function Terminal() {
           content: (
             <div>
               <span className="text-terminal-green">
-                visitor@khalid-portfolio
+                visitor@oussama-portfolio
               </span>
               <div className="mt-1 text-xs text-terminal-text-dim">
-                You are viewing the portfolio of Khalid Echchahid, Software
+                You are viewing the portfolio of Oussama Mahi, Software
                 Engineering Student & Full-Stack Developer
               </div>
             </div>
@@ -525,7 +525,7 @@ export default function Terminal() {
       if (ALL_COMMANDS.includes(commandName)) {
         const descriptions: Record<string, string> = {
           home: "Navigate to the home section of the portfolio",
-          about: "Display information about Khalid Echchahid",
+          about: "Display information about Oussama Mahi",
           skills: "Show technical skills and proficiency levels",
           projects: "List projects and their details",
           contact: "Display contact information",
@@ -627,14 +627,12 @@ export default function Terminal() {
         {/* Welcome message */}
         <div className="mb-4 text-terminal-text-dim">
           <pre className="text-terminal-green">
-            {`
- _  __  _           _  _      _      ______          _         _           _     _      _ 
-| |/ / | |         | |(_)    | |    |  ____|        | |       | |         | |   (_)    | |
-| ' /  | |__   __ _| | _   __| |    | |__    ___ ___| |__   ___| |__   __ _| |__  _  __| |
-|  <   | '_ \\ / _\` | || | / _\` |    |  __|  / __/ __| '_ \\ / __| '_ \\ / _\` | '_ \\| |/ _\` |
-| . \\  | | | | (_| | || || (_| |    | |____| (_| (__| | | | (__| | | | (_| | | | | | (_| |
-|_|\\_\\ |_| |_|\\__,_|_||_| \\__,_|    |______|\\___|___|_| |_|\\___|_| |_|\\__,_|_| |_|_|\\__,_|
-                                                                                           
+            {`   ____  __  ____________ ___    __  ______       __  ______    __  ______
+  / __ \/ / / / ___/ ___//   |  /  |/  /   |     /  |/  /   |  / / / /  _/
+ / / / / / / /\__ \\__ \/ /| | / /|_/ / /| |    / /|_/ / /| | / /_/ // /  
+/ /_/ / /_/ /___/ /__/ / ___ |/ /  / / ___ |   / /  / / ___ |/ __  // /   
+\____/\____//____/____/_/  |_/_/  /_/_/  |_|  /_/  /_/_/  |_/_/ /_/___/   
+                                                                                                                                                                 
 `}
           </pre>
           <p className="mb-2">

@@ -24,43 +24,40 @@ export default function FileExplorer() {
       type: "directory",
       children: [
         {
-          name: "university-collaboration.md",
+          name: "e-learning-application.md",
           type: "file",
-          content: `# University Collaboration Platform
-
-A comprehensive platform that facilitates collaboration between students and professors.
-
-## Features
-- File sharing
-- Online requests for recommendation letters
-- Announcement boards
-- Blogs
-
-## Technologies
-- React
-- Spring Boot
-- Spring Security
-- Spring Cloud
-- Microservices
-- PostgreSQL
-- RabbitMQ`,
+          content: `{
+    "id": 1,
+    "title": "E-Learning Application for the SMI Platform",
+    "description": "A comprehensive platform that facilitates collaboration between students and professors. Features include file sharing, online requests for recommendation letters, announcement boards, and blogs.",
+    "technologies": [
+      "React",
+      "Spring Boot",
+      "Spring Security",
+      "Spring Cloud",
+      "Microservices",
+      "PostgreSQL",
+      "RabbitMQ"
+    ],
+    "image": "/placeholder.svg?height=300&width=600",
+    "color": "#f38ba8"
+  }`,
         },
         {
-          name: "intra-enterprise.md",
+          name: "intra-enterprise-collaboration.md",
           type: "file",
-          content: `# Intra-Enterprise Collaboration System
-
-A web application for collaboration within companies, similar to Stack Overflow.
-
-## Features
-- Announcement system
-- Event organization
-- Internal blogs
-
-## Technologies
-- Next.js 14
-- NextAuth
-- MongoDB`,
+          content: `{
+    "id": 2,
+    "title": "Intra-Enterprise Collaboration System",
+    "description": "A web application for collaboration within companies, similar to Stack Overflow, featuring an announcement system, event organization, and blogs for internal communication.",
+    "technologies": [
+      "Next.js 14",
+      "NextAuth",
+      "MongoDB"
+    ],
+    "image": "/placeholder.svg?height=300&width=600",
+    "color": "#fab387"
+  }`,
         },
       ],
     },
@@ -72,53 +69,53 @@ A web application for collaboration within companies, similar to Stack Overflow.
           name: "frontend.json",
           type: "file",
           content: `{
-  "category": "Frontend",
-  "skills": [
-    { "name": "React.js", "level": "Advanced" },
-    { "name": "Next.js", "level": "Advanced" },
-    { "name": "Tailwind CSS", "level": "Advanced" },
-    { "name": "HTML/CSS", "level": "Advanced" },
-    { "name": "JavaScript", "level": "Advanced" }
-  ]
-}`,
+    "category": "Frontend",
+    "skills": [
+      { "name": "React.js", "level": "Advanced" },
+      { "name": "Next.js", "level": "Advanced" },
+      { "name": "Tailwind CSS", "level": "Advanced" },
+      { "name": "HTML/CSS", "level": "Advanced" },
+      { "name": "JavaScript", "level": "Advanced" }
+    ]
+  }`,
         },
         {
           name: "backend.json",
           type: "file",
           content: `{
-  "category": "Backend",
-  "skills": [
-    { "name": "Spring Boot", "level": "Advanced" },
-    { "name": "Node.js", "level": "Intermediate" },
-    { "name": "Express.js", "level": "Intermediate" },
-    { "name": "PHP", "level": "Intermediate" }
-  ]
-}`,
+    "category": "Backend",
+    "skills": [
+      { "name": "Spring Boot", "level": "Advanced" },
+      { "name": "Node.js", "level": "Intermediate" },
+      { "name": "Express.js", "level": "Intermediate" },
+      { "name": "PHP", "level": "Intermediate" }
+    ]
+  }`,
         },
       ],
     },
     {
       name: "about.txt",
       type: "file",
-      content: `Name: Khalid Echchahid
-Role: Software Engineering Student & Full-Stack Developer
-Location: Fez, Morocco
-Email: echchahidkhalid7@gmail.com
-
-I'm a passionate software engineer with a focus on building efficient and user-friendly web applications. Currently pursuing a degree in Software Engineering and Integration of Computer Systems at the Faculty of Sciences and Techniques, Mohammedia.`,
+      content: `Name: Oussama Mahi
+  Role: Software Engineering Student & Full-Stack Developer
+  Location: Fez, Morocco
+  Email: mahioussama523@gmail.com
+  
+  I'm a passionate software engineer with a focus on building efficient and user-friendly web applications. Currently pursuing a degree in Engineering Cycle: Data Science and Software Engineering (D2S) at the National Superior School of Computer Science and Systems Analysis (ENSIAS).`,
     },
     {
       name: "contact.txt",
       type: "file",
-      content: `Email: echchahidkhalid7@gmail.com
-Professional Email: khalid.echchahid@usmba.ac.ma
-Phone: +212-645557609
-Location: Fez, Morocco
-GitHub: github.com/khalid-echchahid
-LinkedIn: linkedin.com/in/khalid-echchahid`,
+      content: `Email: mahioussama523@gmail.com
+  Professional Email: oussama.echchahid@usmba.ac.ma
+  Phone: +212654600645
+  Location: Fez, Morocco
+  GitHub: https://github.com/oussamamahidev
+  LinkedIn: https://www.linkedin.com/in/oussama-mahi-32041b267/`,
     },
   ]
-
+  
   const toggleFolder = (path: string) => {
     setExpandedFolders((prev) => {
       const newSet = new Set(prev)

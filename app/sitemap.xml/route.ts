@@ -1,7 +1,7 @@
 import { getBlogPosts } from "@/lib/mdx"
 
 export async function GET() {
-  const baseUrl = "https://khalidechchahid.me"
+  const baseUrl = "https://oussamamahi.me"
 
   // Get all blog posts
   const posts = getBlogPosts()

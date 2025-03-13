@@ -39,7 +39,7 @@ export default function TerminalHeader({ activeSection, onTabChange }: TerminalH
             <Maximize2 className="w-2 h-2 text-terminal-bg opacity-0 group-hover:opacity-100" />
           </div>
         </div>
-        <div className="flex-grow text-center text-terminal-text-dim text-xs">khalid@portfolio ~ bash</div>
+        <div className="flex-grow text-center text-terminal-text-dim text-xs">oussama@portfolio ~ bash</div>
       </div>
 
       {/* Tabs */}

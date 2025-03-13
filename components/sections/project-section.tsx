@@ -10,54 +10,148 @@ export default function ProjectsSection() {
 
   const projects = [
     {
-      id: "university-platform",
-      name: "University Collaboration Platform",
+      id: "LMS",
+      name: "E-Learning Application for the SMI Platform",
       description:
-        "A comprehensive platform that facilitates collaboration between students and professors, featuring file sharing, recommendation letter requests, announcements, and blogs.",
+            "A Learning Management System designed to enhance online education by providing features such as course management, user authentication, and collaborative tools.",
       technologies: [
-        "React",
+        "Next",
         "Spring Boot",
-        "Spring Security",
         "Spring Cloud",
         "Microservices",
         "PostgreSQL",
         "RabbitMQ",
+        "Docker"
       ],
-      github: "https://github.com/username/university-collaboration-platform",
+      github: "https://github.com/oussamamahidev/LMSMicroservices",
       codeSnippet: `
 // Project architecture - Microservices implementation
+
+//ApiGateway
 @SpringBootApplication
-@EnableEurekaClient
-@EnableFeignClients
-public class CollaborationServiceApplication {
-  public static void main(String[] args) {
-    SpringApplication.run(CollaborationServiceApplication.class, args);
-  }
-  
-  @Bean
-  @LoadBalanced
-  public RestTemplate restTemplate() {
-    return new RestTemplate();
-  }
+public class ApiGatewayApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(ApiGatewayApplication.class, args);
+	}
+
 }
 
+@SpringBootApplication
+public class UserProgressServiceApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(UserProgressServiceApplication.class, args);
+	}
+	@Bean
+	@LoadBalanced
+	public RestTemplate restTemplate() {
+		return new RestTemplate();
+	}
+}
+@RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/collaboration")
-public class CollaborationController {
-  @Autowired
-  private CollaborationService service;
-  
-  @PostMapping("/request")
-  public ResponseEntity<CollaborationRequest> createRequest(
-      @RequestBody CollaborationRequest request) {
-    return ResponseEntity.ok(service.createRequest(request));
-  }
-  
-  @GetMapping("/requests/{studentId}")
-  public ResponseEntity<List<CollaborationRequest>> getStudentRequests(
-      @PathVariable Long studentId) {
-    return ResponseEntity.ok(service.getStudentRequests(studentId));
-  }
+@RequestMapping("/api/courses")
+public class CourseController {
+    private final CourseService courseService;
+
+    @GetMapping
+    public ResponseEntity<?> getAllCourses() {
+        return courseService.getAllCourses();
+    }
+
+    @GetMapping("/courses-by-user/{userId}")
+    public ResponseEntity<?> getCourses(@PathVariable String userId) {
+        return courseService.findCoursesByUserId(userId);
+    }
+
+    @GetMapping("/v2")
+    public ResponseEntity<?> getCourses(
+            @RequestParam(required = false) String title,
+            @RequestParam(required = false) String categoryId
+    ) {
+        if (title == null && categoryId == null) {
+            return (ResponseEntity<?>) courseService.getAllCourses();
+        }
+
+        if (title != null && categoryId != null) {
+            return courseService.findPublishedCoursesWithTitleContainingAndCategoryId(title, categoryId);
+        } else if (title != null) {
+            return courseService.findPublishedCoursesWithTitleContaining(title);
+        } else {
+            return courseService.findPublishedCoursesWithCategoryId(categoryId);
+        }
+    }
+
+    @GetMapping("/get-course-chapter/{courseId}")
+    public ResponseEntity<?> getCourseAndChapter(@PathVariable String courseId) {
+        ResponseEntity<?> course = courseService.getCourseAndChapter(courseId);
+        return ResponseEntity.ok(course);
+    }
+
+    @GetMapping("/get-course-with-published-chapters/{courseId}")
+    public ResponseEntity<?> getCourseWithPublishedChapters(@PathVariable String courseId) {
+        ResponseEntity<?> course = courseService.getCourseWithPublishedChapters(courseId);
+        return ResponseEntity.ok(course);
+    }
+
+    @GetMapping("/{courseId}")
+    public ResponseEntity<?> getCourse(@PathVariable String courseId) {
+        ResponseEntity<?> course = courseService.getCourse(courseId);
+        return ResponseEntity.ok(course);
+    }
+
+    @PostMapping("/{userId}")
+    public ResponseEntity<?> createCourse(@RequestBody CreateCourseRequest request, @PathVariable String userId){
+        ResponseEntity<?> course = courseService.createCourse(request, userId);
+        return ResponseEntity.ok(course);
+    }
+
+    @PatchMapping("/{courseId}/{userId}")
+    public ResponseEntity<?> updateCourse(@PathVariable String courseId, @PathVariable String userId, @RequestBody UpdateCourseRequest request) {
+        try {
+            return courseService.updateCourse(courseId, userId, request);
+        } catch (UnauthorizedException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized");
+        } catch (CourseNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Course not found");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal Error");
+        }
+    }
+
+    @DeleteMapping("/{courseId}/{userId}")
+    public ResponseEntity<?> deleteCourse(@PathVariable String courseId, @PathVariable String userId) {
+        try {
+            courseService.deleteCourse(courseId, userId);
+            return ResponseEntity.ok().build();
+        } catch (UnauthorizedException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized");
+        } catch (CourseNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Course not found");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal Error");
+        }
+    }
+
+    @PatchMapping("/{courseId}/{userId}/publish")
+    public ResponseEntity<?> publishCourse(@PathVariable String courseId, @PathVariable String userId) {
+            courseService.publishCourse(courseId, userId);
+            return ResponseEntity.ok("Course published successfully");
+    }
+
+    @PatchMapping("/{courseId}/{userId}/unpublish")
+    public ResponseEntity<?> unPublishCourse(@PathVariable String courseId, @PathVariable String userId) {
+        try {
+            courseService.unPublishCourse(courseId, userId);
+            return ResponseEntity.ok("Course Unpublished successfully");
+        } catch (CourseNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Course not found");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal Server Error");
+        }
+    }
+}
 }`,
       language: "java",
     },
@@ -67,7 +161,7 @@ public class CollaborationController {
       description:
         "A web application for collaboration within companies, similar to Stack Overflow, featuring an announcement system, event organization, and blogs for internal communication.",
       technologies: ["Next.js 14", "NextAuth", "MongoDB"],
-      github: "https://github.com/username/intra-enterprise-collaboration",
+      github: "https://github.com/oussamamahidev/stack_overflow",
       codeSnippet: `
 // Authentication implementation with NextAuth
 import NextAuth from 'next-auth';
@@ -120,159 +214,67 @@ export default NextAuth({
       language: "javascript",
     },
     {
-      id: "gladiator-game",
-      name: "Gladiator: 2D Fighting Game",
+      id: "Amazon E-Commerce Clone",
+      name: "Amazon E-Commerce Clone",
       description:
-        "A 2D fighting game developed from scratch using the C programming language and GTK for the graphical user interface. The game includes various mechanics, characters, and visual effects.",
-      technologies: ["C", "GTK Library"],
-      github: "https://github.com/username/gladiator-game",
+        "A full-stack e-commerce platform inspired by Amazon, featuring user authentication, product listings, a shopping cart, and a secure checkout process.",
+        technologies: ["HTML", "CSS", "JavaScript", "Node.js", "Express.js"],
+      github: "https://github.com/oussamamahidev/amazon",
       codeSnippet: `
-// Game loop and collision detection
-void game_update(GameState *state) {
-    // Update player positions based on input
-    if (state->player1.isMovingRight && !state->player1.isAttacking) {
-        state->player1.x += PLAYER_SPEED;
-        state->player1.currentSprite = SPRITE_WALK;
-        state->player1.facingRight = TRUE;
-    } 
-    // ... more movement code ...
-    
-    // Check for collisions between players
-    if (check_collision(&state->player1, &state->player2)) {
-        // Handle collision (push back, etc.)
-        if (state->player1.isAttacking && !state->player2.isBlocking) {
-            apply_damage(&state->player2, state->player1.attackPower);
-            create_hit_effect(state, state->player2.x, state->player2.y);
-            play_sound(SOUND_HIT);
-        } else if (state->player2.isBlocking) {
-            play_sound(SOUND_BLOCK);
-        }
-    }
-    
-    // Update animations and effects
-    update_animations(state);
-    update_effects(state);
-    
-    // Check win conditions
-    if (state->player1.health <= 0 || state->player2.health <= 0) {
-        state->gameOver = TRUE;
-    }
-}
-
-gboolean on_draw(GtkWidget *widget, cairo_t *cr, GameState *state) {
-    // Clear the surface
-    cairo_set_source_rgb(cr, 0.1, 0.1, 0.1);
-    cairo_paint(cr);
-    
-    // Draw the background
-    draw_background(cr, state);
-    
-    // Draw players
-    draw_player(cr, &state->player1);
-    draw_player(cr, &state->player2);
-    
-    // Draw UI elements
-    draw_health_bars(cr, state);
-    draw_effects(cr, state);
-    
-    if (state->gameOver) {
-        draw_game_over(cr, state);
-    }
-    
-    return FALSE;
-}`,
-      language: "c",
-    },
-    {
-      id: "maze-pathfinder",
-      name: "Maze Pathfinder",
-      description:
-        "A Next.js web application that visualizes Dijkstra's Algorithm and Breadth-First Search (BFS) for maze pathfinding, with backend processing handled by a C++ web server.",
-      technologies: ["C++", "Next.js 15", "Tailwind CSS"],
-      github: "https://github.com/username/maze-pathfinder-frontend",
-      backendGithub: "https://github.com/username/maze-pathfinder-backend",
-      codeSnippet: `
-// C++ Implementation of Dijkstra's Algorithm for maze pathfinding
-std::vector<Point> dijkstra(const Maze& maze, Point start, Point end) {
-    const int rows = maze.getRows();
-    const int cols = maze.getCols();
-    
-    // Priority queue for Dijkstra's algorithm
-    std::priority_queue<Node, std::vector<Node>, std::greater<Node>> pq;
-    
-    // Distance matrix
-    std::vector<std::vector<int>> dist(rows, std::vector<int>(cols, INT_MAX));
-    
-    // Parent matrix to reconstruct path
-    std::vector<std::vector<Point>> parent(rows, std::vector<Point>(cols, {-1, -1}));
-    
-    // Initialize start node
-    dist[start.x][start.y] = 0;
-    pq.push({start, 0});
-    
-    // Directions: up, right, down, left
-    const int dx[] = {-1, 0, 1, 0};
-    const int dy[] = {0, 1, 0, -1};
-    
-    while (!pq.empty()) {
-        Node current = pq.top();
-        pq.pop();
-        
-        Point pos = current.pos;
-        
-        // If we reached the end point
-        if (pos.x == end.x && pos.y == end.y) {
-            break;
-        }
-        
-        // Skip if we've found a better path already
-        if (current.dist > dist[pos.x][pos.y]) {
-            continue;
-        }
-        
-        // Explore all four directions
-        for (int i = 0; i < 4; i++) {
-            int nx = pos.x + dx[i];
-            int ny = pos.y + dy[i];
-            
-            // Check if valid and not a wall
-            if (nx >= 0 && nx < rows && ny >= 0 && ny < cols && 
-                !maze.isWall(nx, ny)) {
-                
-                int newDist = dist[pos.x][pos.y] + 1;
-                
-                // If we found a better path
-                if (newDist < dist[nx][ny]) {
-                    dist[nx][ny] = newDist;
-                    parent[nx][ny] = pos;
-                    pq.push({{nx, ny}, newDist});
-                }
-            }
-        }
-    }
-    
-    // Reconstruct the path
-    std::vector<Point> path;
-    Point current = end;
-    
-    while (!(current.x == start.x && current.y == start.y)) {
-        path.push_back(current);
-        current = parent[current.x][current.y];
-        
-        // No path found
-        if (current.x == -1) {
-            return {};
-        }
-    }
-    
-    path.push_back(start);
-    std::reverse(path.begin(), path.end());
-    
-    return path;
-}`,
-      language: "cpp",
+      // Amazon E-Commerce Clone - Basic Setup with Node.js and Express.js
+      
+      // Server setup
+      const express = require('express');
+      const app = express();
+      const port = 3000;
+      
+      // Middleware to parse request bodies
+      app.use(express.json());
+      
+      // Product route - Fetch all products
+      app.get('/api/products', (req, res) => {
+          const products = [
+              { id: 1, name: 'Product 1', price: 199.99 },
+              { id: 2, name: 'Product 2', price: 299.99 },
+              { id: 3, name: 'Product 3', price: 399.99 },
+          ];
+          res.json(products);
+      });
+      
+      // Product route - Get product by ID
+      app.get('/api/products/:id', (req, res) => {
+          const productId = req.params.id;
+          const product = { id: productId, name: 'Product "$"{productId}', price: 199.99 };
+          res.json(product);
+      });
+      
+      // Cart route - Add product to cart
+      app.post('/api/cart', (req, res) => {
+          const { productId, quantity } = req.body;
+          if (!productId || !quantity) {
+              return res.status(400).json({ message: 'Product ID and quantity are required' });
+          }
+          res.json({ message: 'Product added to cart', productId, quantity });
+      });
+      
+      // Checkout route - Proceed to checkout
+      app.post('/api/checkout', (req, res) => {
+          const { cartItems } = req.body;
+          if (!cartItems || cartItems.length === 0) {
+              return res.status(400).json({ message: 'No items in the cart' });
+          }
+          res.json({ message: 'Checkout successful', cartItems });
+      });
+      
+      // Start the server
+      app.listen(port, () => {
+          console.log(\`Amazon E-Commerce Clone running on http://localhost:\'$'{port}\`);
+      });
+      `,
+      language: "Javascript",
     },
   ]
+
 
   const handleNext = () => {
     setActiveProject((prev) => (prev + 1) % projects.length)
@@ -332,17 +334,6 @@ std::vector<Point> dijkstra(const Maze& maze, Point start, Point end) {
             >
               <Github className="w-4 h-4 mr-1" /> GitHub
             </a>
-
-            {project.backendGithub && (
-              <a
-                href={project.backendGithub}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center text-sm text-terminal-blue hover:underline"
-              >
-                <Github className="w-4 h-4 mr-1" /> Backend Repo
-              </a>
-            )}
           </div>
         </div>
 

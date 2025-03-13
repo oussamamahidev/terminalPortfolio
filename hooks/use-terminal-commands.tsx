@@ -185,31 +185,31 @@ export function useTerminalCommands({ activeSection, setActiveSection, addToOutp
                   <span className="text-terminal-green mr-2">→</span>
                   <span className="text-terminal-text-dim mr-2">GitHub:</span>
                   <a
-                    href="https://github.com/khalid-echchahid"
+                    href="https://https://github.com/oussamamahidev"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-terminal-blue hover:underline"
                   >
-                    github.com/khalid-echchahid
+                    https://github.com/oussamamahidev
                   </a>
                 </div>
                 <div className="flex items-center">
                   <span className="text-terminal-green mr-2">→</span>
                   <span className="text-terminal-text-dim mr-2">LinkedIn:</span>
                   <a
-                    href="https://linkedin.com/in/khalid-echchahid"
+                    href="https://https://www.linkedin.com/in/oussama-mahi-32041b267/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-terminal-blue hover:underline"
                   >
-                    linkedin.com/in/khalid-echchahid
+                    https://www.linkedin.com/in/oussama-mahi-32041b267/
                   </a>
                 </div>
                 <div className="flex items-center">
                   <span className="text-terminal-green mr-2">→</span>
                   <span className="text-terminal-text-dim mr-2">Email:</span>
-                  <a href="mailto:echchahidkhalid7@gmail.com" className="text-terminal-blue hover:underline">
-                    echchahidkhalid7@gmail.com
+                  <a href="mailto:mahioussama523@gmail.com" className="text-terminal-blue hover:underline">
+                    mahioussama523@gmail.com
                   </a>
                 </div>
               </div>
@@ -524,19 +524,19 @@ export function useTerminalCommands({ activeSection, setActiveSection, addToOutp
           let content = ""
 
           if (filePath === "about.txt") {
-            content = `Name: Khalid Echchahid
+            content = `Name: Oussama Mahi
 Role: Software Engineering Student & Full-Stack Developer
 Location: Fez, Morocco
-Email: echchahidkhalid7@gmail.com
+Email: mahioussama523@gmail.com
 
-I'm a passionate software engineer with a focus on building efficient and user-friendly web applications. Currently pursuing a degree in Software Engineering and Integration of Computer Systems at the Faculty of Sciences and Techniques, Mohammedia.`
+I'm a passionate software engineer with a focus on building efficient and user-friendly web applications. Currently pursuing a degree in Engineering Cycle: Data Science and Software Engineering (D2S) at the National Superior School of Computer Science and Systems Analysis (ENSIAS).`
           } else if (filePath === "contact.txt") {
-            content = `Email: echchahidkhalid7@gmail.com
-Professional Email: khalid.echchahid@usmba.ac.ma
-Phone: +212-645557609
+            content = `Email: mahioussama523@gmail.com
+Professional Email: oussama.echchahid@usmba.ac.ma
+Phone: +212654600645
 Location: Fez, Morocco
-GitHub: github.com/khalid-echchahid
-LinkedIn: linkedin.com/in/khalid-echchahid`
+GitHub: https://github.com/oussamamahidev
+LinkedIn: https://www.linkedin.com/in/oussama-mahi-32041b267/`
           } else if (filePath.includes("university-collaboration.md")) {
             content = `# University Collaboration Platform
 
@@ -682,9 +682,9 @@ A web application for collaboration within companies, similar to Stack Overflow.
           type: "system",
           content: (
             <div>
-              <span className="text-terminal-green">visitor@khalid-portfolio</span>
+              <span className="text-terminal-green">visitor@oussama-portfolio</span>
               <div className="mt-1 text-xs text-terminal-text-dim">
-                You are viewing the portfolio of Khalid Echchahid, Software Engineering Student & Full-Stack Developer
+                You are viewing the portfolio of Oussama Mahi, Software Engineering Student & Full-Stack Developer
               </div>
             </div>
           ),
@@ -748,7 +748,7 @@ A web application for collaboration within companies, similar to Stack Overflow.
         if (ALL_COMMANDS.includes(commandName)) {
           const descriptions: Record<string, string> = {
             home: "Navigate to the home section of the portfolio",
-            about: "Display information about Khalid Echchahid",
+            about: "Display information about Oussama Mahi",
             skills: "Show technical skills and proficiency levels",
             projects: "List projects and their details",
             contact: "Display contact information",

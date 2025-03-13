@@ -4,7 +4,7 @@ export async function GET() {
   Allow: /
   
   # Sitemaps
-  Sitemap: https://khalidechchahid.me/sitemap.xml
+  Sitemap: https://oussamamahi.me/sitemap.xml
   `
   
     return new Response(robotsTxt, {

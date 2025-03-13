@@ -32,19 +32,19 @@ export default function HomeSection() {
   })
 
   const profileCode = `const profile = {
-  name: "Khalid Echchahid",
+  name: "Oussama Mahi",
   title: "Software Engineering Student",
   specialization: "Full-Stack Developer",
   education: {
     current: {
-      program: "Software Engineering and Integration of Computer Systems",
-      institution: "Faculty of Sciences and Techniques, Mohammedia",
-      graduationYear: 2026
+      program: "Engineering Cycle: Data Science and Software Engineering (D2S)",
+      institution: "National Superior School of Computer Science and Systems Analysis (ENSIAS)",
+      graduationYear: 2027
     },
     previous: {
       program: "Bachelor in Mathematics and Computer Science",
       institution: "Faculty of Sciences, Fez",
-      period: "September 2020 - June 2023",
+      period: "September 2020 - June 2024",
       grade: "A"
     }
   },
@@ -53,9 +53,9 @@ export default function HomeSection() {
     "C/C++", "Java", "JavaScript", "Tailwind CSS", "Docker"
   ],
   contact: {
-    email: "echchahidkhalid7@gmail.com",
-    github: "https://github.com/khalid-echchahid",
-    linkedin: "https://linkedin.com/in/khalid-echchahid"
+    email: "mahioussama523@gmail.com",
+    github: "https://github.com/oussamamahidev",
+    linkedin: "https://www.linkedin.com/in/oussama-mahi-32041b267/"
   }
 };`
 
@@ -68,7 +68,7 @@ export default function HomeSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          Hello, I am Khalid Echchahid
+          Hello, I am Oussama Mahi
         </motion.h1>
 
         {isClient && (

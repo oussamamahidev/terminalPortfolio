@@ -44,16 +44,16 @@ export default function ContactContent() {
   }
 
   const contactJson = `{
-  "name": "Khalid Echchahid",
+  "name": "Oussama Mahi",
   "contact": {
-    "email": "echchahidkhalid7@gmail.com",
-    "professional_email": "khalid.echchahid@usmba.ac.ma",
-    "phone": "+212-645557609",
+    "email": "mahioussama523@gmail.com",
+    "professional_email": "oussama.echchahid@usmba.ac.ma",
+    "phone": "+212654600645",
     "location": "Fez, Morocco"
   },
   "social": {
-    "github": "https://github.com/khalid-echchahid",
-    "linkedin": "https://linkedin.com/in/khalid-echchahid"
+    "github": "https://https://github.com/oussamamahidev",
+    "linkedin": "https://https://www.linkedin.com/in/oussama-mahi-32041b267/"
   },
   "preferred_contact_method": "email"
 }`
@@ -77,17 +77,17 @@ export default function ContactContent() {
                 <div>
                   <p className="font-semibold">Email</p>
                   <a
-                    href="mailto:echchahidkhalid7@gmail.com"
+                    href="mailto:mahioussama523@gmail.com"
                     className="text-terminal-text-dim hover:text-terminal-text"
                   >
-                    echchahidkhalid7@gmail.com
+                    mahioussama523@gmail.com
                   </a>
                   <br />
                   <a
-                    href="mailto:khalid.echchahid@usmba.ac.ma"
+                    href="mailto:oussama.echchahid@usmba.ac.ma"
                     className="text-terminal-text-dim hover:text-terminal-text"
                   >
-                    khalid.echchahid@usmba.ac.ma
+                    oussama.echchahid@usmba.ac.ma
                   </a>
                 </div>
               </li>
@@ -96,7 +96,7 @@ export default function ContactContent() {
                 <div>
                   <p className="font-semibold">Phone</p>
                   <a href="tel:+212645557609" className="text-terminal-text-dim hover:text-terminal-text">
-                    +212-645557609
+                    +212654600645
                   </a>
                 </div>
               </li>
@@ -112,12 +112,12 @@ export default function ContactContent() {
                 <div>
                   <p className="font-semibold">GitHub</p>
                   <a
-                    href="https://github.com/khalid-echchahid"
+                    href="https://https://github.com/oussamamahidev"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-terminal-text-dim hover:text-terminal-text"
                   >
-                    github.com/khalid-echchahid
+                    https://github.com/oussamamahidev
                   </a>
                 </div>
               </li>
@@ -126,12 +126,12 @@ export default function ContactContent() {
                 <div>
                   <p className="font-semibold">LinkedIn</p>
                   <a
-                    href="https://linkedin.com/in/khalid-echchahid"
+                    href="https://https://www.linkedin.com/in/oussama-mahi-32041b267/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-terminal-text-dim hover:text-terminal-text"
                   >
-                    linkedin.com/in/khalid-echchahid
+                    https://www.linkedin.com/in/oussama-mahi-32041b267/
                   </a>
                 </div>
               </li>

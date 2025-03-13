@@ -40,7 +40,7 @@ export default function PageLayout({ children, title }: PageLayoutProps) {
             </div>
           </div>
           <div className="flex-grow text-center text-terminal-text-dim text-xs">
-            khalid@portfolio ~ {currentPage || "bash"}
+            oussama@portfolio ~ {currentPage || "bash"}
           </div>
         </div>
 

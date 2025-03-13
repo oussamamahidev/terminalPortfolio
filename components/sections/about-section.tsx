@@ -28,14 +28,14 @@ export default function AboutSection() {
  * Education
  * ---------
  * Current:
- * - Program: Software Engineering and Integration of Computer Systems
- * - Institution: Faculty of Sciences and Techniques, Mohammedia
- * - Expected Graduation: 2026
+ * - Program: Engineering Cycle: Data Science and Software Engineering (D2S)
+ * - Institution: National Superior School of Computer Science and Systems Analysis (ENSIAS)
+ * - Expected Graduation: 2027
  * 
  * Previous:
  * - Degree: Bachelor in Mathematics and Computer Science
  * - Institution: Faculty of Sciences, Fez
- * - Period: September 2020 - June 2023
+ * - Period: September 2020 - June 2024
  * - Grade: A
  */
 `,
@@ -95,9 +95,13 @@ export default function AboutSection() {
 
       <div className="mt-4 border border-terminal-border rounded p-4 bg-terminal-code/30">
         <p className="text-terminal-text">
-          I am currently pursuing a degree in Software Engineering and looking for opportunities to apply my skills in
-          real-world projects. My background in both Mathematics and Computer Science gives me a strong foundation for
-          solving complex problems.
+        Hello! I am Oussama Mahi, a passionate Software Engineer specializing in Backend Development. Currently, I am pursuing my engineering degree at ENSIAS, focusing on Data Science and Software Engineering (D2S). With a strong foundation in Mathematics and Computer Science, I thrive on solving complex problems and building efficient, scalable applications.
+
+I have experience working with Spring Boot, Node.js, and Next.js, and I am deeply interested in Cloud Computing, Microservices, and DevOps. My current focus is mastering CI/CD pipelines with Jenkins, Nexus, and Kubernetes, ensuring smooth and automated deployments.
+
+Beyond coding, I enjoy exploring new technologies, working on innovative projects, and continuously learning to refine my skills. Check out my portfolio to see my latest projects!
+
+Let’s connect and build something amazing together! 🚀
         </p>
         <p className="mt-2 text-terminal-text-dim">
           Type <span className="text-terminal-yellow">skills</span> to learn about my technical abilities.

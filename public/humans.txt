@@ -1,7 +1,7 @@
 /* TEAM */
-Developer: Khalid Echchahid
-GitHub: https://github.com/khalidechchahid
-Twitter: @khalidechchahid
+Developer: Oussama Mahi
+GitHub: https://github.com/oussamamahi
+Twitter: @oussamamahi
 Location: Morocco
 
 /* SITE */

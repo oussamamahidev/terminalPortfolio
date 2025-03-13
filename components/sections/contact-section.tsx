@@ -43,16 +43,16 @@ export default function ContactSection() {
   }
 
   const contactJson = `{
-  "name": "Khalid Echchahid",
+  "name": "Oussama Mahi",
   "contact": {
-    "email": "echchahidkhalid7@gmail.com",
-    "professional_email": "khalid.echchahid@usmba.ac.ma",
-    "phone": "+212-645557609",
+    "email": "mahioussama523@gmail.com",
+    "professional_email": "oussama.echchahid@usmba.ac.ma",
+    "phone": "+212654600645",
     "location": "Fez, Morocco"
   },
   "social": {
-    "github": "https://github.com/khalid-echchahid",
-    "linkedin": "https://linkedin.com/in/khalid-echchahid"
+    "github": "https://https://github.com/oussamamahidev",
+    "linkedin": "https://https://www.linkedin.com/in/oussama-mahi-32041b267/"
   },
   "preferred_contact_method": "email"
 }`
@@ -75,36 +75,36 @@ export default function ContactSection() {
             <ul className="space-y-2">
               <li className="flex">
                 <span className="text-terminal-text-dim mr-2">$ email:</span>
-                <a href="mailto:echchahidkhalid7@gmail.com" className="text-terminal-blue hover:underline">
-                  echchahidkhalid7@gmail.com
+                <a href="mailto:mahioussama523@gmail.com" className="text-terminal-blue hover:underline">
+                  mahioussama523@gmail.com
                 </a>
               </li>
               <li className="flex">
                 <span className="text-terminal-text-dim mr-2">$ phone:</span>
                 <a href="tel:+212645557609" className="text-terminal-green hover:underline">
-                  +212-645557609
+                  +212654600645
                 </a>
               </li>
               <li className="flex">
                 <span className="text-terminal-text-dim mr-2">$ github:</span>
                 <a
-                  href="https://github.com/khalid-echchahid"
+                  href="https://https://github.com/oussamamahidev"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-terminal-purple hover:underline"
                 >
-                  github.com/khalid-echchahid
+                  https://github.com/oussamamahidev
                 </a>
               </li>
               <li className="flex">
                 <span className="text-terminal-text-dim mr-2">$ linkedin:</span>
                 <a
-                  href="https://linkedin.com/in/khalid-echchahid"
+                  href="https://https://www.linkedin.com/in/oussama-mahi-32041b267/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-terminal-blue hover:underline"
                 >
-                  linkedin.com/in/khalid-echchahid
+                  https://www.linkedin.com/in/oussama-mahi-32041b267/
                 </a>
               </li>
             </ul>

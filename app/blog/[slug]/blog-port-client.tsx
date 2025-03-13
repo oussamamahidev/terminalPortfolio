@@ -106,15 +106,15 @@ export default function BlogPostClient({
             <div className="flex flex-wrap items-center gap-6 mb-6">
               <div className="flex items-center gap-3">
                 <Avatar>
-                  <AvatarImage src="/khalid.jpg" alt="Author" />
+                  <AvatarImage src="/oussama.jpeg" alt="Author" />
                   <AvatarFallback>YN</AvatarFallback>
                 </Avatar>
                 <div>
                   <div className="font-medium text-terminal-text">
-                    Khalid Echchahid
+                    Oussama Mahi
                   </div>
                   <div className="text-sm text-terminal-text-dim">
-                    @khalidEchchahid
+                    @oussamamahi
                   </div>
                 </div>
               </div>

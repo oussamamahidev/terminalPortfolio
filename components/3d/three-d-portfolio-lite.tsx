@@ -23,9 +23,28 @@ export default function ThreeDPortfolioLite() {
 
   // Projects data
   const projects = [
+   
     {
       id: 1,
-      title: "University Collaboration Platform",
+      title: "Amazon E-Commerce Clone",
+      description:
+        "A full-stack e-commerce platform inspired by Amazon, featuring user authentication, product listings, a shopping cart, and a secure checkout process.",
+      technologies: ["HTML", "CSS", "JavaScript", "Node.js", "Express.js"],
+      image: "/placeholder.svg?height=300&width=600",
+      color: "#a6e3a1", // Green
+    },
+    {
+      id: 2,
+      title: "Stack Overflow Clone",
+      description:
+        "A web application that replicates core functionalities of Stack Overflow, allowing users to ask and answer technical questions with voting and moderation features.",
+      technologies: ["Next.js"],
+      image: "/placeholder.svg?height=300&width=600",
+      color: "#f9e2af", // Yellow
+    },
+    {
+      id: 3,
+      title: "E-Learning Application for the SMI Platform",
       description:
         "A comprehensive platform that facilitates collaboration between students and professors. Features include file sharing, online requests for recommendation letters, announcement boards, and blogs.",
       technologies: [
@@ -38,37 +57,11 @@ export default function ThreeDPortfolioLite() {
         "RabbitMQ",
       ],
       image: "/placeholder.svg?height=300&width=600",
-      color: "#89b4fa", // Blue
-    },
-    {
-      id: 2,
-      title: "Intra-Enterprise Collaboration System",
-      description:
-        "A web application for collaboration within companies, similar to Stack Overflow, featuring an announcement system, event organization, and blogs for internal communication.",
-      technologies: ["Next.js 14", "NextAuth", "MongoDB"],
-      image: "/placeholder.svg?height=300&width=600",
-      color: "#a6e3a1", // Green
-    },
-    {
-      id: 3,
-      title: "Gladiator: 2D Fighting Game",
-      description:
-        "A 2D fighting game developed from scratch using the C programming language and GTK for the graphical user interface. The game includes various mechanics, characters, and visual effects.",
-      technologies: ["C", "GTK Library"],
-      image: "/placeholder.svg?height=300&width=600",
-      color: "#f9e2af", // Yellow
-    },
-    {
-      id: 4,
-      title: "Maze Pathfinder",
-      description:
-        "A Next.js web application that visualizes Dijkstra's Algorithm and Breadth-First Search (BFS) for maze pathfinding, with backend processing handled by a C++ web server.",
-      technologies: ["C++", "Next.js 15", "Tailwind CSS"],
-      image: "/placeholder.svg?height=300&width=600",
       color: "#f38ba8", // Red
     },
+    
   ];
-
+  
   // Skills data
   const skillCategories = [
     {
@@ -202,7 +195,7 @@ export default function ThreeDPortfolioLite() {
                         src="https://media.licdn.com/dms/image/v2/D4E03AQFnSpoqTalvpg/profile-displayphoto-shrink_800_800/B4EZVNq_ZTH0Ag-/0/1740764870634?e=1746662400&v=beta&t=A9Esf5PhuJozuVbXoBVmXjh-TTne0MxIk02wUNLXzmo"
                         width={400}
                         height={400}
-                        alt="Khalid Echchahid"
+                        alt="Oussama Mahi"
                         className="w-full h-full object-cover"
                       />
                     </div>
@@ -214,7 +207,7 @@ export default function ThreeDPortfolioLite() {
                       <ul className="space-y-2">
                         <li>
                           <span className="text-terminal-text-dim">Name:</span>{" "}
-                          Khalid Echchahid
+                          Oussama Mahi
                         </li>
                         <li>
                           <span className="text-terminal-text-dim">Age:</span>{" "}
@@ -228,7 +221,7 @@ export default function ThreeDPortfolioLite() {
                         </li>
                         <li>
                           <span className="text-terminal-text-dim">Email:</span>{" "}
-                          echchahidkhalid7@gmail.com
+                          mahioussama523@gmail.com
                         </li>
                         <li>
                           <span className="text-terminal-text-dim">
@@ -265,10 +258,10 @@ export default function ThreeDPortfolioLite() {
                             Systems
                           </p>
                           <p className="text-terminal-text-dim">
-                            Faculty of Sciences and Techniques, Mohammedia
+                            National Superior School of Computer Science and Systems Analysis (ENSIAS)
                           </p>
                           <p className="text-sm text-terminal-green">
-                            Ongoing - Graduation Year: 2026
+                            Ongoing - Graduation Year: 2027
                           </p>
                         </div>
                         <div>
@@ -279,7 +272,7 @@ export default function ThreeDPortfolioLite() {
                             Faculty of Sciences, Fez
                           </p>
                           <p className="text-sm text-terminal-green">
-                            September 2020 - June 2023
+                            September 2020 - June 2024
                           </p>
                           <p className="text-sm text-terminal-green">
                             Grade: A
@@ -288,36 +281,7 @@ export default function ThreeDPortfolioLite() {
                       </div>
                     </div>
 
-                    <div className="bg-terminal-header p-4 rounded-lg">
-                      <h3 className="text-lg font-bold text-terminal-yellow mb-2">
-                        Experience
-                      </h3>
-                      <div>
-                        <p className="font-semibold">
-                          Freelance Full-Stack Developer
-                        </p>
-                        <p className="text-terminal-text-dim">
-                          Self-Employed, Remote
-                        </p>
-                        <p className="text-sm text-terminal-green mb-2">
-                          Since January 2024
-                        </p>
-                        <ul className="list-disc pl-5 space-y-1 text-sm">
-                          <li>
-                            Built custom e-commerce platforms and admin
-                            dashboards
-                          </li>
-                          <li>
-                            Handled end-to-end development from UI design to
-                            MongoDB implementation
-                          </li>
-                          <li>
-                            Developed systems for tracking products, orders, and
-                            customers
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
+                   
                   </div>
                 </div>
               </div>
@@ -590,15 +554,15 @@ export default function ThreeDPortfolioLite() {
                           <p className="font-medium text-terminal-blue">
                             Email
                           </p>
-                          <p>echchahidkhalid7@gmail.com</p>
-                          <p>khalid.echchahid@usmba.ac.ma</p>
+                          <p>mahioussama523@gmail.com</p>
+                          <p>oussama.echchahid@usmba.ac.ma</p>
                         </div>
 
                         <div>
                           <p className="font-medium text-terminal-green">
                             Phone
                           </p>
-                          <p>+212-645557609</p>
+                          <p>+212654600645</p>
                         </div>
 
                         <div>
@@ -621,12 +585,12 @@ export default function ThreeDPortfolioLite() {
                             GitHub
                           </p>
                           <a
-                            href="https://github.com/khalid-echchahid"
+                            href="https://https://github.com/oussamamahidev"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-terminal-text-dim hover:text-terminal-text transition-colors"
                           >
-                            github.com/khalid-echchahid
+                            https://github.com/oussamamahidev
                           </a>
                         </div>
 
@@ -635,12 +599,12 @@ export default function ThreeDPortfolioLite() {
                             LinkedIn
                           </p>
                           <a
-                            href="https://linkedin.com/in/khalid-echchahid"
+                            href="https://https://www.linkedin.com/in/oussama-mahi-32041b267/"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-terminal-text-dim hover:text-terminal-text transition-colors"
                           >
-                            linkedin.com/in/khalid-echchahid
+                            https://www.linkedin.com/in/oussama-mahi-32041b267/
                           </a>
                         </div>
                       </div>

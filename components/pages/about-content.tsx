@@ -29,14 +29,14 @@ export default function AboutContent() {
  * Education
  * ---------
  * Current:
- * - Program: Software Engineering and Integration of Computer Systems
- * - Institution: Faculty of Sciences and Techniques, Mohammedia
- * - Expected Graduation: 2026
+ * - Program: Engineering Cycle: Data Science and Software Engineering (D2S)
+ * - Institution: National Superior School of Computer Science and Systems Analysis (ENSIAS)
+ * - Expected Graduation: 2027
  * 
  * Previous:
  * - Degree: Bachelor in Mathematics and Computer Science
  * - Institution: Faculty of Sciences, Fez
- * - Period: September 2020 - June 2023
+ * - Period: September 2020 - June 2024
  * - Grade: A
  */
 `,
@@ -97,7 +97,7 @@ export default function AboutContent() {
           <h3 className="text-terminal-yellow mb-3 font-bold">Personal Info</h3>
           <ul className="space-y-2">
             <li>
-              <span className="text-terminal-text-dim">Name:</span> Khalid Echchahid
+              <span className="text-terminal-text-dim">Name:</span> Oussama Mahi
             </li>
             <li>
               <span className="text-terminal-text-dim">Age:</span> 22 years old
@@ -115,14 +115,14 @@ export default function AboutContent() {
           <h3 className="text-terminal-yellow mb-3 font-bold">Education</h3>
           <div className="space-y-4">
             <div>
-              <p className="font-semibold">Software Engineering and Integration of Computer Systems</p>
-              <p className="text-terminal-text-dim">Faculty of Sciences and Techniques, Mohammedia</p>
-              <p className="text-sm text-terminal-green">Ongoing - Graduation Year: 2026</p>
+              <p className="font-semibold">Engineering Cycle: Data Science and Software Engineering (D2S)</p>
+              <p className="text-terminal-text-dim">National Superior School of Computer Science and Systems Analysis (ENSIAS)</p>
+              <p className="text-sm text-terminal-green">Ongoing - Graduation Year: 2027</p>
             </div>
             <div>
               <p className="font-semibold">Bachelor in Mathematics and Computer Science</p>
               <p className="text-terminal-text-dim">Faculty of Sciences, Fez</p>
-              <p className="text-sm text-terminal-green">September 2020 - June 2023</p>
+              <p className="text-sm text-terminal-green">September 2020 - June 2024</p>
               <p className="text-sm text-terminal-green">Grade: A</p>
             </div>
           </div>

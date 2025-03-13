@@ -10,15 +10,15 @@ const jetbrainsMono = JetBrains_Mono({
 
 // Define your website metadata with personal branding focus
 export const metadata: Metadata = {
-  metadataBase: new URL("https://khalidechchahid.me"),
+  metadataBase: new URL("https://oussamamahi.me"),
   title: {
-    default: "Khalid Echchahid | Software Engineer & Developer Portfolio",
-    template: "%s | Khalid Echchahid",
+    default: "Oussama Mahi | Software Engineer & Developer Portfolio",
+    template: "%s | Oussama Mahi",
   },
   description:
-    "The terminal-inspired portfolio of Khalid Echchahid, Software Engineer",
+    "The terminal-inspired portfolio of Oussama Mahi, Software Engineer",
   keywords: [
-    "Khalid Echchahid",
+    "Oussama Mahi",
     "software engineer",
     "web developer",
     "portfolio",
@@ -32,12 +32,12 @@ export const metadata: Metadata = {
   ],
   authors: [
     {
-      name: "Khalid Echchahid",
-      url: "https://github.com/khalidechchahid",
+      name: "OussamaEchchahid",
+      url: "https://github.com/oussamamahi",
     },
   ],
-  creator: "Khalid Echchahid",
-  publisher: "Khalid Echchahid",
+  creator: "Oussama Mahi",
+  publisher: "Oussama Mahi",
   formatDetection: {
     email: false,
     address: false,
@@ -57,33 +57,33 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://khalidechchahid.me",
-    siteName: "Khalid Echchahid - Software Engineer",
-    title: "Khalid Echchahid | Software Engineer",
+    url: "https://oussamamahi.me",
+    siteName: "Oussama Mahi - Software Engineer",
+    title: "Oussama Mahi | Software Engineer",
     description:
-      "Khalid Echchahid is a passionate software engineering student with a strong interest in building real-world applications and solving complex problems. He has experience in full-stack development, DevOps, and system architecture, with a focus on creating efficient and scalable solutions. Always eager to learn and grow, Khalid enjoys exploring new technologies and sharing knowledge with others.",
+      "Oussama Mahi is a passionate software engineering student with a strong interest in building real-world applications and solving complex problems. He has experience in full-stack development, DevOps, and system architecture, with a focus on creating efficient and scalable solutions. Always eager to learn and grow, oussama enjoys exploring new technologies and sharing knowledge with others.",
     images: [
       {
-        url: "/khalid.jpg",
+        url: "/oussama.jpeg",
         width: 1200,
         height: 630,
-        alt: "Khalid Echchahid - Software Engineer",
+        alt: "Oussama Mahi - Software Engineer",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Khalid Echchahid | Software Engineer",
+    title: "Oussama Mahi | Software Engineer",
     description:
-    "Khalid Echchahid is a passionate software engineering student with a strong interest in building real-world applications and solving complex problems. He has experience in full-stack development, DevOps, and system architecture, with a focus on creating efficient and scalable solutions. Always eager to learn and grow, Khalid enjoys exploring new technologies and sharing knowledge with others.",
-    creator: "@khalidechchahid",
-    images: ["/khalid.jpg"],
+    "Oussama Mahi is a passionate software engineering student with a strong interest in building real-world applications and solving complex problems. He has experience in full-stack development, DevOps, and system architecture, with a focus on creating efficient and scalable solutions. Always eager to learn and grow, oussama enjoys exploring new technologies and sharing knowledge with others.",
+    creator: "@oussamamahi",
+    images: ["/oussama.jpeg"],
   },
   icons: {
     icon: [
       { url: "/favicon.ico" },
-      { url: "/khalid16x16.png", sizes: "16x16", type: "image/png" },
-      { url: "/khalid32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/oussama16x16.jpg.png", sizes: "16x16", type: "image/png" },
+      { url: "/oussama32x32.png", sizes: "32x32", type: "image/png" },
     ],
     // apple: [{ url: "/apple-touch-icon.png" }],
     // other: [
@@ -95,9 +95,9 @@ export const metadata: Metadata = {
   },
   manifest: "/site.webmanifest",
   alternates: {
-    canonical: "https://khalidechchahid.me",
+    canonical: "https://oussamamahi.me",
     languages: {
-      "en-US": "https://khalidechchahid.me",
+      "en-US": "https://oussamamahi.me",
     },
   },
   verification: {
@@ -124,17 +124,17 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Person",
-              name: "Khalid Echchahid",
-              url: "https://khalidechchahid.me",
-              image: "/khalid.jpg",
+              name: "Oussama Mahi",
+              url: "https://oussamamahi.me",
+              image: "/oussama.jpeg",
               sameAs: [
-                "https://github.com/khalidechchahid",
-                "https://www.linkedin.com/in/khalid-echchahid",
+                
+                "https://www.https://www.linkedin.com/in/oussama-mahi-32041b267/",
               ],
               jobTitle: "Software Engineer",
     
               description:
-              "Khalid Echchahid is a passionate software engineering student with a strong interest in building real-world applications and solving complex problems. He has experience in full-stack development, DevOps, and system architecture, with a focus on creating efficient and scalable solutions. Always eager to learn and grow, Khalid enjoys exploring new technologies and sharing knowledge with others.",
+              "Oussama Mahi is a passionate software engineering student with a strong interest in building real-world applications and solving complex problems. He has experience in full-stack development, DevOps, and system architecture, with a focus on creating efficient and scalable solutions. Always eager to learn and grow, oussama enjoys exploring new technologies and sharing knowledge with others.",
               knowsAbout: ["JavaScript", "React", "Next.js", "TypeScript", "Web Development", "Terminal Applications"],
             }),
           }}

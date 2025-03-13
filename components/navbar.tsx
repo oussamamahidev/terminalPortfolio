@@ -102,7 +102,7 @@ export default function NavBar({
           {/* Logo */}
           <div className="flex items-center">
             <span className={`font-bold text-lg ${theme.textGreenClass}`}>
-              Khalid.dev
+              Oussama.dev
             </span>
           </div>
 

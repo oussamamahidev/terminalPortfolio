@@ -13,7 +13,7 @@ export default function TerminalFooter() {
     >
       <div className="flex items-center space-x-2">
         <TerminalIcon className="h-3 w-3" />
-        <span>khalid@portfolio</span>
+        <span>oussama@portfolio</span>
         {editorState.active && (
           <>
             <span className="mx-1">•</span>

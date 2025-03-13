@@ -35,11 +35,11 @@ export default function ThreeDContent({ activeSection, viewMode }: ThreeDContent
             <div>
               <h2 className="text-xl font-bold text-terminal-green mb-4">About Me</h2>
               <p className="text-terminal-text mb-3">
-                I am Khalid Echchahid, a software engineering student and full-stack developer with a passion for
+                I am Oussama Mahi, a software engineering student and full-stack developer with a passion for
                 building innovative web applications.
               </p>
               <p className="text-terminal-text-dim">
-                Currently pursuing a degree in Software Engineering and Integration of Computer Systems at the Faculty
+                Currently pursuing a degree in Engineering Cycle: Data Science and Software Engineering (D2S) at the Faculty
                 of Sciences and Techniques, Mohammedia.
               </p>
             </div>
@@ -76,9 +76,9 @@ export default function ThreeDContent({ activeSection, viewMode }: ThreeDContent
               <h2 className="text-xl font-bold text-terminal-green mb-4">Projects</h2>
               <div className="space-y-3">
                 <div>
-                  <h3 className="text-terminal-yellow">University Collaboration Platform</h3>
+                  <h3 className="text-terminal-yellow">E-Learning Application for the SMI Platform</h3>
                   <p className="text-terminal-text-dim text-sm">
-                    A comprehensive platform facilitating collaboration between students and professors.
+                  A Learning Management System designed to enhance online education by providing features such as course management, user authentication, and collaborative tools.
                   </p>
                 </div>
                 <div>
@@ -88,9 +88,9 @@ export default function ThreeDContent({ activeSection, viewMode }: ThreeDContent
                   </p>
                 </div>
                 <div>
-                  <h3 className="text-terminal-yellow">Gladiator: 2D Fighting Game</h3>
+                  <h3 className="text-terminal-yellow">Amazon E-Commerce Clonee</h3>
                   <p className="text-terminal-text-dim text-sm">
-                    A 2D fighting game developed from scratch using C and GTK.
+                  A full-stack e-commerce platform inspired by Amazon, featuring user authentication, product listings, a shopping cart, and a secure checkout process.
                   </p>
                 </div>
               </div>
@@ -103,15 +103,15 @@ export default function ThreeDContent({ activeSection, viewMode }: ThreeDContent
               <div className="space-y-3">
                 <div>
                   <h3 className="text-terminal-yellow">Email</h3>
-                  <p className="text-terminal-text-dim">echchahidkhalid7@gmail.com</p>
+                  <p className="text-terminal-text-dim">mahioussama523@gmail.com</p>
                 </div>
                 <div>
                   <h3 className="text-terminal-yellow">GitHub</h3>
-                  <p className="text-terminal-text-dim">github.com/khalid-echchahid</p>
+                  <p className="text-terminal-text-dim">https://github.com/oussamamahidev</p>
                 </div>
                 <div>
                   <h3 className="text-terminal-yellow">LinkedIn</h3>
-                  <p className="text-terminal-text-dim">linkedin.com/in/khalid-echchahid</p>
+                  <p className="text-terminal-text-dim">https://www.linkedin.com/in/oussama-mahi-32041b267/</p>
                 </div>
                 <div>
                   <h3 className="text-terminal-yellow">Location</h3>
