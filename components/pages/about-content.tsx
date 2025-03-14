@@ -44,15 +44,7 @@ export default function AboutContent() {
 /**
  * Professional Experience
  * ----------------------
- * Freelance Full-Stack Developer
- * Self-Employed, Remote
- * January 2024 - Present
- * 
- * Responsibilities:
- * - Working closely with clients to build custom e-commerce platforms and admin dashboards
- * - Using Next.js 14 and Tailwind CSS to create fast, responsive user experiences
- * - Implementing MongoDB for efficient data management
- * - Developing systems for tracking products, orders, and customers
+ * Encours
  */
 `,
   }

@@ -1,11 +1,11 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { motion } from "framer-motion"
-import { CodeBlock } from "../syntax-highlight"
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { CodeBlock } from "../syntax-highlight";
 
 export default function AboutSection() {
-  const [activeTab, setActiveTab] = useState("personal")
+  const [activeTab, setActiveTab] = useState("personal");
 
   const tabContent = {
     personal: `
@@ -43,24 +43,17 @@ export default function AboutSection() {
 /**
  * Professional Experience
  * ----------------------
- * Freelance Full-Stack Developer
- * Self-Employed, Remote
- * January 2024 - Present
  * 
- * Responsibilities:
- * - Working closely with clients to build custom e-commerce platforms and admin dashboards
- * - Using Next.js 14 and Tailwind CSS to create fast, responsive user experiences
- * - Implementing MongoDB for efficient data management
- * - Developing systems for tracking products, orders, and customers
+ * En cours
  */
 `,
-  }
+  };
 
   const tabs = [
     { id: "personal", label: "Personal" },
     { id: "education", label: "Education" },
     { id: "experience", label: "Experience" },
-  ]
+  ];
 
   return (
     <div>
@@ -95,19 +88,25 @@ export default function AboutSection() {
 
       <div className="mt-4 border border-terminal-border rounded p-4 bg-terminal-code/30">
         <p className="text-terminal-text">
-        Hello! I am Oussama Mahi, a passionate Software Engineer specializing in Backend Development. Currently, I am pursuing my engineering degree at ENSIAS, focusing on Data Science and Software Engineering (D2S). With a strong foundation in Mathematics and Computer Science, I thrive on solving complex problems and building efficient, scalable applications.
-
-I have experience working with Spring Boot, Node.js, and Next.js, and I am deeply interested in Cloud Computing, Microservices, and DevOps. My current focus is mastering CI/CD pipelines with Jenkins, Nexus, and Kubernetes, ensuring smooth and automated deployments.
-
-Beyond coding, I enjoy exploring new technologies, working on innovative projects, and continuously learning to refine my skills. Check out my portfolio to see my latest projects!
-
-Let’s connect and build something amazing together! 🚀
+          Hello! I am Oussama Mahi, a passionate Software Engineer specializing
+          in Backend Development. Currently, I am pursuing my engineering degree
+          at ENSIAS, focusing on Data Science and Software Engineering (D2S).
+          With a strong foundation in Mathematics and Computer Science, I thrive
+          on solving complex problems and building efficient, scalable
+          applications. I have experience working with Spring Boot, Node.js, and
+          Next.js, and I am deeply interested in Cloud Computing, Microservices,
+          and DevOps. My current focus is mastering CI/CD pipelines with
+          Jenkins, Nexus, and Kubernetes, ensuring smooth and automated
+          deployments. Beyond coding, I enjoy exploring new technologies,
+          working on innovative projects, and continuously learning to refine my
+          skills. Check out my portfolio to see my latest projects! Let’s
+          connect and build something amazing together! 🚀
         </p>
         <p className="mt-2 text-terminal-text-dim">
-          Type <span className="text-terminal-yellow">skills</span> to learn about my technical abilities.
+          Type <span className="text-terminal-yellow">skills</span> to learn
+          about my technical abilities.
         </p>
       </div>
     </div>
-  )
+  );
 }
-
