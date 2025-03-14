@@ -94,13 +94,11 @@ export default function AboutSection() {
           With a strong foundation in Mathematics and Computer Science, I thrive
           on solving complex problems and building efficient, scalable
           applications. I have experience working with Spring Boot, Node.js, and
-          Next.js, and I am deeply interested in Cloud Computing, Microservices,
-          and DevOps. My current focus is mastering CI/CD pipelines with
-          Jenkins, Nexus, and Kubernetes, ensuring smooth and automated
-          deployments. Beyond coding, I enjoy exploring new technologies,
-          working on innovative projects, and continuously learning to refine my
-          skills. Check out my portfolio to see my latest projects! Let’s
-          connect and build something amazing together! 🚀
+          Next.js, and I am deeply interested in Microservices, and
+          DevOps.Beyond coding, I enjoy exploring new technologies, working on
+          innovative projects, and continuously learning to refine my skills.
+          Check out my portfolio to see my latest projects! Let’s connect and
+          build something amazing together! 🚀
         </p>
         <p className="mt-2 text-terminal-text-dim">
           Type <span className="text-terminal-yellow">skills</span> to learn

@@ -1,27 +1,31 @@
-"use client"
+"use client";
 
-import { useContext } from "react"
-import { TerminalContext } from "@/contexts/terminal-context"
+import { useContext } from "react";
+import { TerminalContext } from "@/contexts/terminal-context";
 
 export default function TerminalWelcome() {
-  const { theme } = useContext(TerminalContext)
+  const { theme } = useContext(TerminalContext);
 
   return (
     <div className="mb-4 text-terminal-text-dim">
       <pre className={theme.textGreenClass}>
-        {`  _____  _     _    _      _           ______            ______         _     _ _____ 
- / ___ \| |   | |  | |    | |     /\  |  ___ \   /\     |  ___ \   /\  | |   | (_____)
-| |   | | |   | |   \ \    \ \   /  \ | | _ | | /  \    | | _ | | /  \ | |__ | |  _   
-| |   | | |   | |    \ \    \ \ / /\ \| || || |/ /\ \   | || || |/ /\ \|  __)| | | |  
-| |___| | |___| |_____) )____) ) |__| | || || | |__| |  | || || | |__| | |   | |_| |_ 
- \_____/ \______(______(______/|______|_||_||_|______|  |_||_||_|______|_|   |_(_____) `}
+        {`
+ ,-----. ,--. ,--. ,---.   ,---.   ,---.  ,--.   ,--.  ,---.   ,--.   ,--.  ,---.  ,--.  ,--.,--. 
+'  .-.  '|  | |  |'   .-' '   .-' /  O  \\ |   \`.'   | /  O  \\  |   \`.'   | /  O  \\ |  '--'  ||  | 
+|  | |  ||  | |  |'.  \`-. \`.  \`-.|  .-.  ||  |'.'|  ||  .-.  | |  |'.'|  ||  .-.  ||  .--.  ||  | 
+'  '-'  ''  '-'  '.-'    |.-'    |  | |  ||  |   |  ||  | |  | |  |   |  ||  | |  ||  |  |  ||  | 
+ \`-----'  \`-----' \`-----' \`-----'\`--' \`--'\`--'   \`--'\`--' \`--' \`--'   \`--'\`--' \`--'\`--'  \`--'\`--' 
+`}
       </pre>
-      <p className="mb-2">Welcome to my interactive developer portfolio terminal.</p>
+      <p className="mb-2">
+        Welcome to my interactive developer portfolio terminal.
+      </p>
       <p>
-        Type <span className={theme.textYellowClass}>help</span> to see available commands or navigate using the tabs
-        above. Try <span className={theme.textGreenClass}>launch_portfolio</span> for a special experience!
+        Type <span className={theme.textYellowClass}>help</span> to see
+        available commands or navigate using the tabs above. Try{" "}
+        <span className={theme.textGreenClass}>launch_portfolio</span> for a
+        special experience!
       </p>
     </div>
-  )
+  );
 }
-
