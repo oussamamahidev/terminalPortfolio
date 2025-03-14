@@ -1,13 +1,17 @@
-"use client"
+"use client";
 
-import { useEffect, useRef, useState } from "react"
-import * as THREE from "three"
-import { OrbitControls } from "three/addons/controls/OrbitControls.js"
-import { motion, AnimatePresence } from "framer-motion"
+import { useEffect, useRef, useState } from "react";
+import * as THREE from "three";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function ThreeDSkillsVisualization() {
-  const mountRef = useRef<HTMLDivElement>(null)
-  const [hoveredSkill, setHoveredSkill] = useState<string | null>(null)
+  const mountRef = useRef<HTMLDivElement>(null);
+  const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
+  const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
+  const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
+  const sceneRef = useRef<THREE.Scene | null>(null);
+  const frameIdRef = useRef<number | null>(null);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const skillCategories = [
@@ -60,314 +64,702 @@ export default function ThreeDSkillsVisualization() {
         { name: "TypeScript", level: 0.8 },
       ],
     },
-  ]
+  ];
 
   useEffect(() => {
-    if (!mountRef.current) return
+    if (!mountRef.current) return;
 
     // Scene setup
-    const scene = new THREE.Scene()
-    scene.background = new THREE.Color("#0f0f1a")
+    const scene = new THREE.Scene();
+    sceneRef.current = scene;
+    scene.background = new THREE.Color("#0f0f1a");
 
     // Camera setup
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
-    camera.position.set(0, 0, 30)
+    const camera = new THREE.PerspectiveCamera(
+      75,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      1000
+    );
+    camera.position.set(0, 0, 30);
 
-    // Renderer setup
-    const renderer = new THREE.WebGLRenderer({ antialias: true })
-    renderer.setSize(window.innerWidth, window.innerHeight)
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-    mountRef.current.appendChild(renderer.domElement)
+    // Renderer setup with improved settings
+    const renderer = new THREE.WebGLRenderer({
+      antialias: true,
+      powerPreference: "high-performance",
+      alpha: true,
+    });
+    rendererRef.current = renderer;
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    mountRef.current.appendChild(renderer.domElement);
 
-    // Controls
-    const controls = new OrbitControls(camera, renderer.domElement)
-    controls.enableDamping = true
-    controls.dampingFactor = 0.05
-    controls.maxDistance = 50
-    controls.minDistance = 10
+    // Controls with improved settings
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.05;
+    controls.rotateSpeed = 0.8;
+    controls.maxDistance = 60;
+    controls.minDistance = 10;
+    controls.autoRotate = true;
+    controls.autoRotateSpeed = 0.5;
+    controls.enablePan = false;
 
-    // Lighting
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5)
-    scene.add(ambientLight)
+    // Enhanced lighting
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+    scene.add(ambientLight);
 
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 1)
-    directionalLight.position.set(5, 5, 5)
-    scene.add(directionalLight)
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+    directionalLight.position.set(5, 5, 5);
+    directionalLight.castShadow = true;
+    directionalLight.shadow.mapSize.width = 1024;
+    directionalLight.shadow.mapSize.height = 1024;
+    scene.add(directionalLight);
+
+    // Add point lights for better illumination
+    const pointLight1 = new THREE.PointLight(0x89b4fa, 1, 50);
+    pointLight1.position.set(15, 15, 15);
+    scene.add(pointLight1);
+
+    const pointLight2 = new THREE.PointLight(0xa6e3a1, 1, 50);
+    pointLight2.position.set(-15, -15, 15);
+    scene.add(pointLight2);
 
     // Create skill visualization
-    const skillGroups: THREE.Group[] = []
-    const skillObjects: { mesh: THREE.Mesh; name: string }[] = []
+    const skillGroups: THREE.Group[] = [];
+    const skillObjects: { mesh: THREE.Mesh; name: string; category: string }[] =
+      [];
 
-    // Create a central sphere
-    const centralGeometry = new THREE.SphereGeometry(2, 32, 32)
+    // Create a central sphere with improved materials
+    const centralGeometry = new THREE.SphereGeometry(2.5, 32, 32);
     const centralMaterial = new THREE.MeshPhysicalMaterial({
       color: 0xffffff,
       metalness: 0.3,
       roughness: 0.4,
       emissive: 0xffffff,
       emissiveIntensity: 0.2,
-    })
-    const centralSphere = new THREE.Mesh(centralGeometry, centralMaterial)
-    scene.add(centralSphere)
+      clearcoat: 1.0,
+      clearcoatRoughness: 0.1,
+      envMapIntensity: 1.0,
+    });
+    const centralSphere = new THREE.Mesh(centralGeometry, centralMaterial);
+    centralSphere.castShadow = true;
+    centralSphere.receiveShadow = true;
+    scene.add(centralSphere);
 
-    // Create skill categories
+    // Add pulsing animation to central sphere
+    const centralGlow = new THREE.PointLight(0xffffff, 1.5, 10);
+    centralSphere.add(centralGlow);
+
+    // Create skill categories with improved positioning
     skillCategories.forEach((category, categoryIndex) => {
-      const categoryGroup = new THREE.Group()
+      const categoryGroup = new THREE.Group();
 
-      // Position category in a circle around the center
-      const categoryAngle = (categoryIndex / skillCategories.length) * Math.PI * 2
-      const categoryRadius = 10
-      const categoryX = Math.cos(categoryAngle) * categoryRadius
-      const categoryY = Math.sin(categoryAngle) * categoryRadius
+      // Position category in a circle around the center with better distribution
+      const categoryAngle =
+        (categoryIndex / skillCategories.length) * Math.PI * 2;
+      const categoryRadius = 12;
+      const categoryX = Math.cos(categoryAngle) * categoryRadius;
+      const categoryY = Math.sin(categoryAngle) * categoryRadius;
 
-      categoryGroup.position.set(categoryX, categoryY, 0)
+      categoryGroup.position.set(categoryX, categoryY, 0);
 
-      // Create category label
-      const categoryLabelCanvas = document.createElement("canvas")
-      categoryLabelCanvas.width = 256
-      categoryLabelCanvas.height = 128
-      const categoryContext = categoryLabelCanvas.getContext("2d")
+      // Create category label with improved visuals
+      const categoryLabelCanvas = document.createElement("canvas");
+      categoryLabelCanvas.width = 512;
+      categoryLabelCanvas.height = 256;
+      const categoryContext = categoryLabelCanvas.getContext("2d");
 
       if (categoryContext) {
-        categoryContext.fillStyle = "rgba(0, 0, 0, 0)"
-        categoryContext.fillRect(0, 0, categoryLabelCanvas.width, categoryLabelCanvas.height)
+        // Create gradient background
+        const gradient = categoryContext.createLinearGradient(
+          0,
+          0,
+          0,
+          categoryLabelCanvas.height
+        );
+        gradient.addColorStop(0, "rgba(15, 15, 26, 0.8)");
+        gradient.addColorStop(1, "rgba(15, 15, 26, 0.4)");
+        categoryContext.fillStyle = gradient;
+        categoryContext.fillRect(
+          0,
+          0,
+          categoryLabelCanvas.width,
+          categoryLabelCanvas.height
+        );
 
-        categoryContext.font = "bold 36px JetBrains Mono, monospace"
-        categoryContext.textAlign = "center"
-        categoryContext.textBaseline = "middle"
-        categoryContext.fillStyle = category.color
-        categoryContext.fillText(category.name, categoryLabelCanvas.width / 2, categoryLabelCanvas.height / 2)
+        // Add subtle pattern
+        categoryContext.fillStyle = "rgba(255, 255, 255, 0.05)";
+        for (let i = 0; i < 20; i++) {
+          const x = Math.random() * categoryLabelCanvas.width;
+          const y = Math.random() * categoryLabelCanvas.height;
+          const size = Math.random() * 5 + 1;
+          categoryContext.beginPath();
+          categoryContext.arc(x, y, size, 0, Math.PI * 2);
+          categoryContext.fill();
+        }
 
-        const categoryTexture = new THREE.CanvasTexture(categoryLabelCanvas)
+        // Draw text with shadow
+        categoryContext.shadowColor = "rgba(0, 0, 0, 0.5)";
+        categoryContext.shadowBlur = 10;
+        categoryContext.shadowOffsetX = 2;
+        categoryContext.shadowOffsetY = 2;
+        categoryContext.font = "bold 48px JetBrains Mono, monospace";
+        categoryContext.textAlign = "center";
+        categoryContext.textBaseline = "middle";
+        categoryContext.fillStyle = category.color;
+        categoryContext.fillText(
+          category.name,
+          categoryLabelCanvas.width / 2,
+          categoryLabelCanvas.height / 2
+        );
+
+        // Add subtle border
+        categoryContext.strokeStyle = `${category.color}44`;
+        categoryContext.lineWidth = 4;
+        categoryContext.strokeRect(
+          10,
+          10,
+          categoryLabelCanvas.width - 20,
+          categoryLabelCanvas.height - 20
+        );
+
+        const categoryTexture = new THREE.CanvasTexture(categoryLabelCanvas);
+        categoryTexture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+
         const categoryLabelMaterial = new THREE.MeshBasicMaterial({
           map: categoryTexture,
           transparent: true,
           side: THREE.DoubleSide,
-        })
+        });
 
-        const categoryLabelGeometry = new THREE.PlaneGeometry(4, 2)
-        const categoryLabel = new THREE.Mesh(categoryLabelGeometry, categoryLabelMaterial)
-        categoryLabel.position.set(0, 3, 0)
-        categoryGroup.add(categoryLabel)
+        const categoryLabelGeometry = new THREE.PlaneGeometry(5, 2.5);
+        const categoryLabel = new THREE.Mesh(
+          categoryLabelGeometry,
+          categoryLabelMaterial
+        );
+        categoryLabel.position.set(0, 4, 0);
+        categoryLabel.userData = { type: "category", name: category.name };
+        categoryGroup.add(categoryLabel);
       }
 
-      // Create skills for this category
+      // Create skills for this category with improved layout
       category.skills.forEach((skill, skillIndex) => {
-        // Create skill sphere
-        const skillGeometry = new THREE.SphereGeometry(skill.level * 0.8, 32, 32)
+        // Calculate better positioning for skills
+        const skillCount = category.skills.length;
+        const skillAngle = (skillIndex / skillCount) * Math.PI * 2;
+        const skillRadius = 4.5;
+        const skillX = Math.cos(skillAngle) * skillRadius;
+        const skillY = Math.sin(skillAngle) * skillRadius;
+
+        // Create skill sphere with improved materials
+        const skillGeometry = new THREE.SphereGeometry(
+          skill.level * 0.9,
+          32,
+          32
+        );
         const skillMaterial = new THREE.MeshPhysicalMaterial({
           color: new THREE.Color(category.color),
           metalness: 0.3,
           roughness: 0.4,
           emissive: new THREE.Color(category.color),
           emissiveIntensity: 0.2,
-        })
+          clearcoat: 0.5,
+          clearcoatRoughness: 0.2,
+          envMapIntensity: 0.8,
+        });
 
-        const skillMesh = new THREE.Mesh(skillGeometry, skillMaterial)
-
-        // Position skill in a circle around the category
-        const skillAngle = (skillIndex / category.skills.length) * Math.PI * 2
-        const skillRadius = 4
-        const skillX = Math.cos(skillAngle) * skillRadius
-        const skillY = Math.sin(skillAngle) * skillRadius
-
-        skillMesh.position.set(skillX, skillY, 0)
-        skillMesh.name = `skill-${category.name}-${skill.name}`
-        categoryGroup.add(skillMesh)
+        const skillMesh = new THREE.Mesh(skillGeometry, skillMaterial);
+        skillMesh.position.set(skillX, skillY, 0);
+        skillMesh.castShadow = true;
+        skillMesh.receiveShadow = true;
+        skillMesh.name = `skill-${category.name}-${skill.name}`;
+        skillMesh.userData = {
+          type: "skill",
+          name: skill.name,
+          category: category.name,
+          level: skill.level,
+        };
+        categoryGroup.add(skillMesh);
 
         // Add to skill objects array for raycasting
-        skillObjects.push({ mesh: skillMesh, name: skill.name })
+        skillObjects.push({
+          mesh: skillMesh,
+          name: skill.name,
+          category: category.name,
+        });
 
-        // Create skill label
-        const skillLabelCanvas = document.createElement("canvas")
-        skillLabelCanvas.width = 256
-        skillLabelCanvas.height = 128
-        const skillContext = skillLabelCanvas.getContext("2d")
+        // Create skill label with improved visuals
+        const skillLabelCanvas = document.createElement("canvas");
+        skillLabelCanvas.width = 256;
+        skillLabelCanvas.height = 128;
+        const skillContext = skillLabelCanvas.getContext("2d");
 
         if (skillContext) {
-          skillContext.fillStyle = "rgba(0, 0, 0, 0)"
-          skillContext.fillRect(0, 0, skillLabelCanvas.width, skillLabelCanvas.height)
+          // Create background with gradient
+          const gradient = skillContext.createLinearGradient(
+            0,
+            0,
+            0,
+            skillLabelCanvas.height
+          );
+          gradient.addColorStop(0, "rgba(15, 15, 26, 0.7)");
+          gradient.addColorStop(1, "rgba(15, 15, 26, 0.3)");
+          skillContext.fillStyle = gradient;
+          skillContext.fillRect(
+            0,
+            0,
+            skillLabelCanvas.width,
+            skillLabelCanvas.height
+          );
 
-          skillContext.font = "24px JetBrains Mono, monospace"
-          skillContext.textAlign = "center"
-          skillContext.textBaseline = "middle"
-          skillContext.fillStyle = "white"
-          skillContext.fillText(skill.name, skillLabelCanvas.width / 2, skillLabelCanvas.height / 2)
+          // Draw text with shadow
+          skillContext.shadowColor = "rgba(0, 0, 0, 0.5)";
+          skillContext.shadowBlur = 5;
+          skillContext.shadowOffsetX = 1;
+          skillContext.shadowOffsetY = 1;
+          skillContext.font = "bold 24px JetBrains Mono, monospace";
+          skillContext.textAlign = "center";
+          skillContext.textBaseline = "middle";
+          skillContext.fillStyle = "white";
+          skillContext.fillText(
+            skill.name,
+            skillLabelCanvas.width / 2,
+            skillLabelCanvas.height / 2
+          );
 
-          const skillTexture = new THREE.CanvasTexture(skillLabelCanvas)
+          // Add proficiency indicator
+          skillContext.fillStyle = category.color;
+          skillContext.fillRect(
+            skillLabelCanvas.width / 2 - 50,
+            skillLabelCanvas.height - 20,
+            skill.level * 100,
+            6
+          );
+
+          // Add border
+          skillContext.strokeStyle = "rgba(255, 255, 255, 0.1)";
+          skillContext.lineWidth = 2;
+          skillContext.strokeRect(
+            5,
+            5,
+            skillLabelCanvas.width - 10,
+            skillLabelCanvas.height - 10
+          );
+
+          const skillTexture = new THREE.CanvasTexture(skillLabelCanvas);
+          skillTexture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+
           const skillLabelMaterial = new THREE.MeshBasicMaterial({
             map: skillTexture,
             transparent: true,
             side: THREE.DoubleSide,
-          })
+            depthTest: false,
+          });
 
-          const skillLabelGeometry = new THREE.PlaneGeometry(2, 1)
-          const skillLabel = new THREE.Mesh(skillLabelGeometry, skillLabelMaterial)
-          skillLabel.position.set(skillX, skillY - 1.2, 0)
-          categoryGroup.add(skillLabel)
+          const skillLabelGeometry = new THREE.PlaneGeometry(2.5, 1.25);
+          const skillLabel = new THREE.Mesh(
+            skillLabelGeometry,
+            skillLabelMaterial
+          );
+          skillLabel.position.set(skillX, skillY - 1.5, 0);
+          categoryGroup.add(skillLabel);
         }
 
-        // Create connection line to category center
+        // Create connection line to category center with improved visuals
         const lineMaterial = new THREE.LineBasicMaterial({
           color: new THREE.Color(category.color),
           transparent: true,
           opacity: 0.5,
-        })
+          linewidth: 2,
+        });
+
         const lineGeometry = new THREE.BufferGeometry().setFromPoints([
           new THREE.Vector3(0, 0, 0),
           new THREE.Vector3(skillX, skillY, 0),
-        ])
-        const line = new THREE.Line(lineGeometry, lineMaterial)
-        categoryGroup.add(line)
-      })
+        ]);
 
-      // Create connection line to central sphere
+        const line = new THREE.Line(lineGeometry, lineMaterial);
+        categoryGroup.add(line);
+      });
+
+      // Create connection line to central sphere with improved visuals
       const connectionMaterial = new THREE.LineBasicMaterial({
         color: new THREE.Color(category.color),
         transparent: true,
-        opacity: 0.3,
-      })
+        opacity: 0.4,
+        linewidth: 3,
+      });
+
       const connectionGeometry = new THREE.BufferGeometry().setFromPoints([
         new THREE.Vector3(0, 0, 0),
         new THREE.Vector3(-categoryX, -categoryY, 0),
-      ])
-      const connection = new THREE.Line(connectionGeometry, connectionMaterial)
-      categoryGroup.add(connection)
+      ]);
 
-      scene.add(categoryGroup)
-      skillGroups.push(categoryGroup)
-    })
+      const connection = new THREE.Line(connectionGeometry, connectionMaterial);
+      categoryGroup.add(connection);
 
-    // Raycaster for interaction
-    const raycaster = new THREE.Raycaster()
-    const mouse = new THREE.Vector2()
+      scene.add(categoryGroup);
+      skillGroups.push(categoryGroup);
+    });
 
-    const handleMouseMove = (event: MouseEvent) => {
-      mouse.x = (event.clientX / window.innerWidth) * 2 - 1
-      mouse.y = -(event.clientY / window.innerHeight) * 2 + 1
+    // Add particle system for background
+    const particlesGeometry = new THREE.BufferGeometry();
+    const particlesCount = 2000;
+    const posArray = new Float32Array(particlesCount * 3);
+    const scaleArray = new Float32Array(particlesCount);
 
-      raycaster.setFromCamera(mouse, camera)
-      const intersects = raycaster.intersectObjects(scene.children, true)
+    for (let i = 0; i < particlesCount * 3; i += 3) {
+      // Create a sphere of particles
+      const radius = 30 + Math.random() * 40;
+      const theta = Math.random() * Math.PI * 2;
+      const phi = Math.acos(2 * Math.random() - 1);
 
-      if (intersects.length > 0) {
-        const object = intersects[0].object
+      posArray[i] = radius * Math.sin(phi) * Math.cos(theta);
+      posArray[i + 1] = radius * Math.sin(phi) * Math.sin(theta);
+      posArray[i + 2] = radius * Math.cos(phi);
 
-        // Check if we're hovering over a skill
-        if (object.name && object.name.startsWith("skill-")) {
-          const skillName = object.name.split("-")[2]
-          setHoveredSkill(skillName)
-          document.body.style.cursor = "pointer"
-        } else {
-          setHoveredSkill(null)
-          document.body.style.cursor = "auto"
-        }
-      } else {
-        setHoveredSkill(null)
-        document.body.style.cursor = "auto"
-      }
+      scaleArray[i / 3] = Math.random();
     }
 
-    window.addEventListener("mousemove", handleMouseMove)
+    particlesGeometry.setAttribute(
+      "position",
+      new THREE.BufferAttribute(posArray, 3)
+    );
+    particlesGeometry.setAttribute(
+      "scale",
+      new THREE.BufferAttribute(scaleArray, 1)
+    );
 
-    // Animation loop
-    const clock = new THREE.Clock()
+    // Create shader material for particles with improved effects
+    const particlesMaterial = new THREE.ShaderMaterial({
+      uniforms: {
+        time: { value: 0 },
+        color: { value: new THREE.Color(0x89b4fa) },
+      },
+      vertexShader: `
+        attribute float scale;
+        uniform float time;
+        
+        void main() {
+          vec3 pos = position;
+          
+          // Add subtle movement
+          float noise = sin(pos.x * 0.05 + time) * cos(pos.z * 0.05 + time) * sin(pos.y * 0.05 + time);
+          pos.x += noise * 0.3;
+          pos.y += noise * 0.3;
+          pos.z += noise * 0.3;
+          
+          vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
+          gl_PointSize = scale * 2.5 * (300.0 / -mvPosition.z);
+          gl_Position = projectionMatrix * mvPosition;
+        }
+      `,
+      fragmentShader: `
+        uniform vec3 color;
+        
+        void main() {
+          // Create circular particles with soft edges
+          float dist = length(gl_PointCoord - vec2(0.5));
+          if (dist > 0.5) discard;
+          
+          // Add glow effect
+          float intensity = 1.0 - dist * 2.0;
+          gl_FragColor = vec4(color, intensity * 0.6);
+        }
+      `,
+      transparent: true,
+      depthWrite: false,
+      blending: THREE.AdditiveBlending,
+    });
+
+    const particles = new THREE.Points(particlesGeometry, particlesMaterial);
+    scene.add(particles);
+
+    // Improved raycaster for interaction
+    const raycaster = new THREE.Raycaster();
+    raycaster.params.Points.threshold = 0.1;
+    const mouse = new THREE.Vector2();
+
+    const handleMouseMove = (event: MouseEvent) => {
+      // Calculate mouse position in normalized device coordinates
+      mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+      mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+      // Update the raycaster
+      raycaster.setFromCamera(mouse, camera);
+
+      // Check for intersections with all objects
+      const intersects = raycaster.intersectObjects(scene.children, true);
+
+      if (intersects.length > 0) {
+        const object = intersects[0].object;
+
+        // Check if we're hovering over a skill
+        if (object.userData && object.userData.type === "skill") {
+          setHoveredSkill(object.userData.name);
+          setHoveredCategory(object.userData.category);
+          document.body.style.cursor = "pointer";
+        }
+        // Check if we're hovering over a category
+        else if (object.userData && object.userData.type === "category") {
+          setHoveredCategory(object.userData.name);
+          setHoveredSkill(null);
+          document.body.style.cursor = "pointer";
+        } else {
+          setHoveredSkill(null);
+          setHoveredCategory(null);
+          document.body.style.cursor = "auto";
+        }
+      } else {
+        setHoveredSkill(null);
+        setHoveredCategory(null);
+        document.body.style.cursor = "auto";
+      }
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+
+    // Animation loop with improved effects
+    const clock = new THREE.Clock();
 
     const animate = () => {
-      const elapsedTime = clock.getElapsedTime()
+      frameIdRef.current = requestAnimationFrame(animate);
+      const elapsedTime = clock.getElapsedTime();
 
       // Rotate central sphere
-      centralSphere.rotation.y = elapsedTime * 0.2
+      centralSphere.rotation.y = elapsedTime * 0.2;
+      centralSphere.rotation.x = Math.sin(elapsedTime * 0.1) * 0.1;
+
+      // Pulse central glow
+      centralGlow.intensity = 1.5 + Math.sin(elapsedTime * 2) * 0.5;
 
       // Animate skill groups
       skillGroups.forEach((group, index) => {
         // Gentle floating animation
-        group.position.y += Math.sin(elapsedTime * 0.5 + index) * 0.003
+        group.position.y += Math.sin(elapsedTime * 0.5 + index) * 0.003;
 
         // Slight rotation
-        group.rotation.z = Math.sin(elapsedTime * 0.2 + index) * 0.05
-      })
+        group.rotation.z = Math.sin(elapsedTime * 0.2 + index) * 0.05;
 
-      // Highlight hovered skill
+        // Highlight group if its category is hovered
+        if (hoveredCategory === skillCategories[index].name) {
+          group.scale.setScalar(1.05 + Math.sin(elapsedTime * 3) * 0.02);
+        } else {
+          group.scale.lerp(new THREE.Vector3(1, 1, 1), 0.1);
+        }
+      });
+
+      // Highlight hovered skill with improved effects
       skillObjects.forEach((obj) => {
         if (obj.name === hoveredSkill) {
-          obj.mesh.scale.set(1.2, 1.2, 1.2)
+          obj.mesh.scale.lerp(new THREE.Vector3(1.3, 1.3, 1.3), 0.1);
           if (obj.mesh.material instanceof THREE.MeshPhysicalMaterial) {
-            obj.mesh.material.emissiveIntensity = 0.5
+            obj.mesh.material.emissiveIntensity =
+              0.5 + Math.sin(elapsedTime * 5) * 0.2;
+          }
+        } else if (obj.category === hoveredCategory && !hoveredSkill) {
+          obj.mesh.scale.lerp(new THREE.Vector3(1.15, 1.15, 1.15), 0.1);
+          if (obj.mesh.material instanceof THREE.MeshPhysicalMaterial) {
+            obj.mesh.material.emissiveIntensity = 0.3;
           }
         } else {
-          obj.mesh.scale.set(1, 1, 1)
+          obj.mesh.scale.lerp(new THREE.Vector3(1, 1, 1), 0.1);
           if (obj.mesh.material instanceof THREE.MeshPhysicalMaterial) {
-            obj.mesh.material.emissiveIntensity = 0.2
+            obj.mesh.material.emissiveIntensity = 0.2;
           }
         }
-      })
+      });
+
+      // Update particle shader time
+      if (particles.material instanceof THREE.ShaderMaterial) {
+        particles.material.uniforms.time.value = elapsedTime;
+      }
+
+      // Slowly rotate particles
+      particles.rotation.y = elapsedTime * 0.05;
+      particles.rotation.x = elapsedTime * 0.02;
 
       // Update controls
-      controls.update()
+      controls.update();
 
       // Render
-      renderer.render(scene, camera)
+      renderer.render(scene, camera);
+    };
 
-      requestAnimationFrame(animate)
-    }
+    animate();
 
-    animate()
-
-    // Handle window resize
+    // Handle window resize with improved responsiveness
     const handleResize = () => {
-      camera.aspect = window.innerWidth / window.innerHeight
-      camera.updateProjectionMatrix()
-      renderer.setSize(window.innerWidth, window.innerHeight)
-    }
+      if (!mountRef.current) return;
 
-    window.addEventListener("resize", handleResize)
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+
+      // Update camera
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+
+      // Update renderer
+      renderer.setSize(width, height);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    };
+
+    window.addEventListener("resize", handleResize);
 
     // Cleanup
     return () => {
-      window.removeEventListener("resize", handleResize)
-      window.removeEventListener("mousemove", handleMouseMove)
+      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("mousemove", handleMouseMove);
 
-      if (mountRef.current && mountRef.current.contains(renderer.domElement)) {
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        mountRef.current.removeChild(renderer.domElement)
+      if (frameIdRef.current !== null) {
+        cancelAnimationFrame(frameIdRef.current);
       }
-    }
-  }, [skillCategories, hoveredSkill])
+
+      if (mountRef.current && rendererRef.current) {
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        mountRef.current.removeChild(rendererRef.current.domElement);
+      }
+
+      // Dispose of geometries and materials to prevent memory leaks
+      if (sceneRef.current) {
+        sceneRef.current.traverse((object) => {
+          if (object instanceof THREE.Mesh) {
+            object.geometry.dispose();
+
+            if (Array.isArray(object.material)) {
+              object.material.forEach((material) => material.dispose());
+            } else {
+              object.material.dispose();
+            }
+          }
+        });
+      }
+
+      // Reset cursor
+      document.body.style.cursor = "auto";
+    };
+  }, [skillCategories, hoveredSkill, hoveredCategory]);
 
   return (
     <div className="relative w-full h-full">
       <div ref={mountRef} className="w-full h-full" />
 
-      {/* Skill info overlay */}
+      {/* Skill info overlay with improved design */}
       <AnimatePresence>
         {hoveredSkill && (
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
-            className="absolute bottom-32 left-1/2 transform -translate-x-1/2 bg-terminal-header-dark/80 backdrop-blur-md p-3 rounded-lg border border-terminal-border"
+            transition={{ duration: 0.2 }}
+            className="absolute bottom-32 left-1/2 transform -translate-x-1/2 bg-terminal-header-dark/90 backdrop-blur-md p-4 rounded-lg border border-terminal-border shadow-xl"
           >
-            <h3 className="text-terminal-green font-bold">{hoveredSkill}</h3>
+            <h3
+              className="text-xl font-bold mb-2"
+              style={{
+                color:
+                  skillCategories.find((c) => c.name === hoveredCategory)
+                    ?.color || "#ffffff",
+              }}
+            >
+              {hoveredSkill}
+            </h3>
 
             {skillCategories
-              .flatMap((category) => category.skills.filter((skill) => skill.name === hoveredSkill))
+              .flatMap((category) =>
+                category.skills.filter((skill) => skill.name === hoveredSkill)
+              )
               .map((skill, index) => (
-                <div key={index} className="mt-1">
-                  <div className="w-full bg-terminal-border rounded-full h-1.5">
+                <div key={index} className="mt-2">
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="text-sm text-terminal-text-dim">
+                      Proficiency
+                    </span>
+                    <span className="text-sm font-medium">
+                      {Math.round(skill.level * 100)}%
+                    </span>
+                  </div>
+                  <div className="w-full bg-terminal-header rounded-full h-2 overflow-hidden">
                     <div
-                      className="h-1.5 rounded-full bg-terminal-green"
-                      style={{ width: `${skill.level * 100}%` }}
+                      className="h-2 rounded-full"
+                      style={{
+                        width: `${skill.level * 100}%`,
+                        backgroundColor:
+                          skillCategories.find(
+                            (c) => c.name === hoveredCategory
+                          )?.color || "#ffffff",
+                      }}
                     ></div>
                   </div>
-                  <div className="text-xs text-terminal-text-dim mt-1">
-                    Proficiency: {Math.round(skill.level * 100)}%
+                  <div className="mt-2 text-xs text-terminal-text-dim">
+                    Category:{" "}
+                    <span
+                      className="font-medium"
+                      style={{
+                        color:
+                          skillCategories.find(
+                            (c) => c.name === hoveredCategory
+                          )?.color || "#ffffff",
+                      }}
+                    >
+                      {hoveredCategory}
+                    </span>
                   </div>
                 </div>
               ))}
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
-  )
-}
 
+      {/* Category info overlay */}
+      <AnimatePresence>
+        {hoveredCategory && !hoveredSkill && (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 10 }}
+            transition={{ duration: 0.2 }}
+            className="absolute bottom-32 left-1/2 transform -translate-x-1/2 bg-terminal-header-dark/90 backdrop-blur-md p-4 rounded-lg border border-terminal-border shadow-xl"
+          >
+            <h3
+              className="text-xl font-bold mb-2"
+              style={{
+                color:
+                  skillCategories.find((c) => c.name === hoveredCategory)
+                    ?.color || "#ffffff",
+              }}
+            >
+              {hoveredCategory}
+            </h3>
+
+            <div className="mt-1">
+              <p className="text-sm text-terminal-text-dim mb-2">
+                Skills in this category:
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {skillCategories
+                  .find((c) => c.name === hoveredCategory)
+                  ?.skills.map((skill, index) => (
+                    <span
+                      key={index}
+                      className="px-2 py-1 text-xs rounded-md bg-terminal-header"
+                    >
+                      {skill.name}
+                    </span>
+                  ))}
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Instructions overlay */}
+      <div className="absolute bottom-4 left-4 bg-terminal-header-dark/80 backdrop-blur-md px-3 py-2 rounded-lg text-xs text-terminal-text-dim">
+        Drag to rotate • Scroll to zoom • Hover over skills for details
+      </div>
+    </div>
+  );
+}

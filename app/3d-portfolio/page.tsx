@@ -1,10 +1,9 @@
-import ThreeDPortfolioLite from "@/components/3d/three-d-portfolio-lite"
+import ThreeDPortfolioLite from "@/components/3d/lite/three-d-portfolio-lite";
 
-export default function ThreeDPortfolioPage() {
+export default function Home() {
   return (
-    <main className="min-h-screen bg-terminal-bg text-terminal-text relative">
+    <main className="min-h-screen bg-terminal-bg text-terminal-text">
       <ThreeDPortfolioLite />
     </main>
-  )
+  );
 }
-

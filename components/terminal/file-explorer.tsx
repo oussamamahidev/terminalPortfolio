@@ -39,7 +39,7 @@ export default function FileExplorer() {
       "PostgreSQL",
       "RabbitMQ"
     ],
-    "image": "/placeholder.svg?height=300&width=600",
+    "image": "/app/lms.png?height=300&width=600",
     "color": "#f38ba8"
   }`,
         },
