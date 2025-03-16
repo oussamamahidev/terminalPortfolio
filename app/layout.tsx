@@ -1,12 +1,12 @@
-import type React from "react"
-import { JetBrains_Mono } from "next/font/google"
-import type { Metadata } from "next"
-import "./globals.css"
-
+import type React from "react";
+import { JetBrains_Mono } from "next/font/google";
+import type { Metadata } from "next";
+import "./globals.css";
+import { Analytics } from "@vercel/analytics/next";
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
-})
+});
 
 // Define your website metadata with personal branding focus
 export const metadata: Metadata = {
@@ -75,7 +75,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Oussama Mahi | Software Engineer",
     description:
-    "Oussama Mahi is a passionate software engineering student with a strong interest in building real-world applications and solving complex problems. He has experience in full-stack development, DevOps, and system architecture, with a focus on creating efficient and scalable solutions. Always eager to learn and grow, oussama enjoys exploring new technologies and sharing knowledge with others.",
+      "Oussama Mahi is a passionate software engineering student with a strong interest in building real-world applications and solving complex problems. He has experience in full-stack development, DevOps, and system architecture, with a focus on creating efficient and scalable solutions. Always eager to learn and grow, oussama enjoys exploring new technologies and sharing knowledge with others.",
     creator: "@oussamamahi",
     images: ["/oussama.jpeg"],
   },
@@ -103,19 +103,23 @@ export const metadata: Metadata = {
   verification: {
     google: "kxkkRg7CVtHLYhTyoBwWjiDmupHOV6B9XdEvJ",
   },
-}
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
         {/* Preconnect to domains for performance */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
 
         {/* Add structured data for personal identity */}
         <script
@@ -128,20 +132,30 @@ export default function RootLayout({
               url: "https://oussamamahi.me",
               image: "/oussama.jpeg",
               sameAs: [
-                
                 "https://www.https://www.linkedin.com/in/oussama-mahi-32041b267/",
               ],
               jobTitle: "Software Engineer",
-    
+
               description:
-              "Oussama Mahi is a passionate software engineering student with a strong interest in building real-world applications and solving complex problems. He has experience in full-stack development, DevOps, and system architecture, with a focus on creating efficient and scalable solutions. Always eager to learn and grow, oussama enjoys exploring new technologies and sharing knowledge with others.",
-              knowsAbout: ["JavaScript", "React", "Next.js", "TypeScript", "Web Development", "Terminal Applications"],
+                "Oussama Mahi is a passionate software engineering student with a strong interest in building real-world applications and solving complex problems. He has experience in full-stack development, DevOps, and system architecture, with a focus on creating efficient and scalable solutions. Always eager to learn and grow, oussama enjoys exploring new technologies and sharing knowledge with others.",
+              knowsAbout: [
+                "JavaScript",
+                "React",
+                "Next.js",
+                "TypeScript",
+                "Web Development",
+                "Terminal Applications",
+              ],
             }),
           }}
         />
       </head>
-      <body className={`${jetbrainsMono.variable} font-mono bg-terminal-bg text-terminal-text`}>{children}</body>
+      <body
+        className={`${jetbrainsMono.variable} font-mono bg-terminal-bg text-terminal-text`}
+      >
+        {children}
+        <Analytics />
+      </body>
     </html>
-  )
+  );
 }
-
